@@ -5,6 +5,7 @@ import ProtectedClient from '@/app/components/ProtectedClient';
 import DashboardNav from '@/app/components/DashboardNav';
 import UploadForm from '@/app/components/UploadForm';
 import AnalysisResultCard from '@/app/components/AnalysisResultCard';
+import AnalysisHistory from '@/app/components/AnalysisHistory';
 import ClaimModal from '@/app/components/ClaimModal';
 import { AnalysisResult } from '@/lib/types';
 import { apiPost } from '@/lib/apiClient';
@@ -12,21 +13,69 @@ import { apiPost } from '@/lib/apiClient';
 export default function DashboardPage() {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [currentDescription, setCurrentDescription] = useState<string>('');
+  const [currentFileNames, setCurrentFileNames] = useState<string[]>([]);
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingTicket, setIsSendingTicket] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [historyRefresh, setHistoryRefresh] = useState(0);
 
-  const handleAnalyze = async (description: string, file: File) => {
+  const handleAnalyze = async (description: string, files: File[]) => {
     setIsLoading(true);
     setError(null);
     setSuccessMessage(null);
     setCurrentDescription(description);
+    setCurrentFileNames(files.map(f => f.name));
 
     try {
-      const result = await apiPost<AnalysisResult>('/api/analyze', { description }, true);
+      // Create base64 previews for immediate display (even without Cloudinary)
+      const imagePreviews: string[] = [];
+      for (const file of files) {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          const base64 = await new Promise<string>((resolve) => {
+            reader.onload = () => resolve(reader.result as string);
+            reader.readAsDataURL(file);
+          });
+          imagePreviews.push(base64);
+        }
+      }
+
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append('description', description);
+      
+      // Add all files
+      files.forEach(file => {
+        formData.append('files', file);
+      });
+
+      // Upload to backend with files
+      const token = localStorage.getItem('fixhub_token');
+      const response = await fetch('http://localhost:4000/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Analysis failed');
+      }
+
+      const result = await response.json();
       setAnalysisResult(result);
+      
+      // If no Cloudinary URLs returned, use base64 previews temporarily
+      // (Backend will save empty array, but we can show previews in frontend)
+      
+      // Trigger history refresh
+      setHistoryRefresh(prev => prev + 1);
+      
+      setSuccessMessage('Analysis completed successfully!');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while analyzing');
       console.error('Analysis error:', err);
@@ -53,6 +102,13 @@ export default function DashboardPage() {
       );
 
       setSuccessMessage(response.message || 'Ticket sent successfully!');
+      
+      // Immediately refresh history to show updated provider info
+      // Small delay to ensure backend has finished updating the history
+      setTimeout(() => {
+        setHistoryRefresh(prev => prev + 1);
+        console.log('🔄 [Dashboard] History refreshed after ticket creation');
+      }, 500); // 500ms delay to ensure backend update completes
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send ticket');
       console.error('Ticket error:', err);
@@ -126,8 +182,10 @@ export default function DashboardPage() {
               )}
             </div>
 
-            {/* Right Column - Sidebar */}
+            {/* Right Column - History & Stats */}
             <div className="space-y-6">
+              {/* Analysis History */}
+              <AnalysisHistory onRefresh={historyRefresh} />
               {/* Quick Stats */}
               <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
                 <h3 className="text-lg font-semibold text-slate-800 mb-4">Quick Stats</h3>

@@ -3,20 +3,25 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 
 interface UploadFormProps {
-  onAnalyze: (description: string, file: File) => Promise<void>;
+  onAnalyze: (description: string, files: File[]) => Promise<void>;
   isLoading: boolean;
 }
 
 export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
   const [description, setDescription] = useState('');
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<{ description?: string; file?: string }>({});
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      const fileArray = Array.from(e.target.files);
+      setFiles(fileArray);
       setErrors((prev) => ({ ...prev, file: undefined }));
     }
+  };
+
+  const removeFile = (index: number) => {
+    setFiles(files.filter((_, i) => i !== index));
   };
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,8 +37,8 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
     // Client-side validation
     const newErrors: { description?: string; file?: string } = {};
 
-    if (!file) {
-      newErrors.file = 'Please select an image file';
+    if (files.length === 0) {
+      newErrors.file = 'Please select at least one image file';
     }
 
     if (description.trim().length < 5) {
@@ -46,7 +51,11 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
     }
 
     // Call the parent handler
-    await onAnalyze(description, file!);
+    await onAnalyze(description, files);
+    
+    // Clear form after successful submission
+    setDescription('');
+    setFiles([]);
   };
 
   return (
@@ -58,18 +67,41 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label htmlFor="file" className="block text-sm font-medium text-slate-700 mb-2">
-            Upload Image of Damaged Item *
+            Upload Images of Damaged Item * (Multiple files allowed)
           </label>
           <input
             type="file"
             id="file"
             accept="image/*"
+            multiple
             onChange={handleFileChange}
             className="block w-full text-sm text-slate-900 border-2 border-slate-300 rounded-lg cursor-pointer bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 p-3 hover:border-teal-400 transition-colors"
             disabled={isLoading}
           />
           {errors.file && (
             <p className="text-red-500 text-sm mt-1">{errors.file}</p>
+          )}
+          
+          {/* Display selected files */}
+          {files.length > 0 && (
+            <div className="mt-3 space-y-2">
+              <p className="text-sm font-medium text-slate-700">Selected files ({files.length}):</p>
+              <div className="flex flex-wrap gap-2">
+                {files.map((file, index) => (
+                  <div key={index} className="flex items-center gap-2 bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 text-sm">
+                    <span className="text-teal-700 truncate max-w-[200px]">{file.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeFile(index)}
+                      className="text-red-500 hover:text-red-700 font-bold"
+                      disabled={isLoading}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 

@@ -1,5 +1,5 @@
 export type Severity = 'minor' | 'moderate' | 'severe';
-export type Category = 'appliance' | 'vvs' | 'electronics';
+export type Category = 'appliance' | 'electronics' | 'plumbing' | 'furniture' | 'other';
 
 export interface AnalysisResult {
   category: Category;

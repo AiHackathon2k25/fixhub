@@ -29,14 +29,14 @@ export default function DashboardNav() {
     <nav className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-8">
-            <Link href="/dashboard" className="flex items-center gap-3">
-              <Logo size="md" />
-              <span className="text-xl font-bold text-white">FixHub</span>
-            </Link>
+          {/* Logo - Left Side */}
+          <Link href="/dashboard" className="flex items-center">
+            <Logo size="md" />
+          </Link>
 
-            {/* Main Navigation */}
+          {/* Navigation Items - Right Side */}
+          <div className="flex items-center gap-6">
+            {/* Main Navigation Links */}
             <div className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
                 <Link
@@ -52,10 +52,7 @@ export default function DashboardNav() {
                 </Link>
               ))}
             </div>
-          </div>
 
-          {/* Right Side - Notifications & Profile */}
-          <div className="flex items-center gap-4">
             {/* Notifications */}
             <button className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition-colors">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -20,9 +20,8 @@ export default function Header() {
     <header className="bg-white shadow-md sticky top-0 z-50 border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center">
             <Logo size="md" />
-            <h1 className="text-3xl font-bold text-slate-800">FixHub</h1>
           </Link>
 
           <nav className="flex items-center gap-6">

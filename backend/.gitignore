@@ -1,6 +1,22 @@
-node_modules
-dist
-.env
-*.log
-.DS_Store
+# Dependencies
+node_modules/
 
+# Environment variables
+.env
+.env.local
+
+# Build output
+dist/
+build/
+
+# Data files (persistent storage)
+data/
+*.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

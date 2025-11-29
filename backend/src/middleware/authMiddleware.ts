@@ -11,6 +11,7 @@ export interface AuthRequest extends Request {
     username: string;
     phone: string;
   };
+  userId?: string; // For convenience
 }
 
 export function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
@@ -40,6 +41,9 @@ export function authMiddleware(req: AuthRequest, res: Response, next: NextFuncti
       username: user.username,
       phone: user.phone,
     };
+    
+    // Also add userId for convenience
+    req.userId = user.id;
 
     next();
   } catch (error) {

@@ -29,13 +29,13 @@ export function mockAnalysis(description: string): AnalysisResult {
 
   if (lower.includes('leak') || lower.includes('water')) {
     return {
-      category: 'vvs',
+      category: 'plumbing',
       subCategory: 'pipe leak',
       severity: 'moderate',
       estimatedCost: '800–1500 DKK',
       repairOrReplace: 'repair',
       insuranceSummary:
-        'Customer reports a localized water leak near a visible pipe connection. Moisture is present around the fitting, but there is no widespread flooding or structural damage. The issue is consistent with a failing seal or loose joint. A VVS technician should inspect, replace or reseal the affected connection, and verify that no additional hidden leaks are present.',
+        'Customer reports a localized water leak near a visible pipe connection. Moisture is present around the fitting, but there is no widespread flooding or structural damage. The issue is consistent with a failing seal or loose joint. A plumbing technician should inspect, replace or reseal the affected connection, and verify that no additional hidden leaks are present.',
     };
   }
 

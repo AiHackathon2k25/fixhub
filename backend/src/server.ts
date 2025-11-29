@@ -1,18 +1,44 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import authRouter from './routes/auth';
 import analyzeRouter from './routes/analyze';
 import ticketsRouter from './routes/tickets';
+import debugRouter from './routes/debug';
+import historyRouter from './routes/history';
+import { initializeServiceProviders } from './services/serviceProviderService';
+import { migrateProviderInfo } from './scripts/migrateProviderInfo';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Log JWT_SECRET status
+// Log environment status
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
   console.warn('⚠️  WARNING: JWT_SECRET not set. Using fallback (not secure for production)');
 } else {
   console.log('✅ JWT_SECRET loaded from environment');
+}
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+if (!GEMINI_API_KEY) {
+  console.warn('⚠️  WARNING: GEMINI_API_KEY not set. AI analysis will use mock fallback.');
+} else {
+  console.log('✅ GEMINI_API_KEY loaded from environment');
+}
+
+const CLOUDINARY_CONFIGURED = !!(
+  process.env.CLOUDINARY_CLOUD_NAME && 
+  process.env.CLOUDINARY_API_KEY && 
+  process.env.CLOUDINARY_API_SECRET
+);
+if (!CLOUDINARY_CONFIGURED) {
+  console.warn('⚠️  WARNING: Cloudinary not configured. Images will not be stored.');
+  console.warn('   Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to .env');
+} else {
+  console.log('✅ Cloudinary configured - images will be stored in cloud');
 }
 
 // Middleware
@@ -26,11 +52,19 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api', analyzeRouter);
 app.use('/api', ticketsRouter);
+app.use('/api/debug', debugRouter);
+app.use('/api/history', historyRouter);
 
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
+
+// Initialize service providers
+initializeServiceProviders();
+
+// Migrate existing data to include provider info
+migrateProviderInfo();
 
 // Start server
 app.listen(PORT, () => {

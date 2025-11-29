@@ -1,28 +1,73 @@
 import { User } from './types/user';
+import bcrypt from 'bcryptjs';
+import { mockDB } from './mockDB';
+import { UserDocument } from './models/User';
 
 /**
- * In-memory user store for hackathon demo only.
- * In production, this would be replaced with a proper database (e.g., PostgreSQL, MongoDB).
+ * User store using Mock MongoDB
+ * Can be easily replaced with real MongoDB by changing the mockDB import
  */
-const users: User[] = [];
+
+const usersCollection = mockDB.collection<UserDocument>('users');
+
+// Create default test user
+const defaultPasswordHash = bcrypt.hashSync('test123', 10);
+
+const existingUser = usersCollection.findOne({ email: 'test@fixhub.com' });
+if (!existingUser) {
+  usersCollection.insertOne({
+    email: 'test@fixhub.com',
+    passwordHash: defaultPasswordHash,
+    username: 'Test User',
+    phone: '+45 12345678',
+    createdAt: new Date().toISOString(),
+  });
+  console.log('📦 [MockDB] Default user created: test@fixhub.com');
+}
 
 export function findUserByEmail(email: string): User | undefined {
-  return users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  const doc = usersCollection.findOne({ email: email.toLowerCase() });
+  if (!doc) return undefined;
+  
+  return {
+    id: doc._id,
+    email: doc.email,
+    passwordHash: doc.passwordHash,
+    username: doc.username,
+    phone: doc.phone,
+  };
 }
 
 export function createUser(email: string, passwordHash: string, username: string, phone: string): User {
-  const user: User = {
-    id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    email,
+  const doc = usersCollection.insertOne({
+    email: email.toLowerCase(),
     passwordHash,
     username,
     phone,
+    createdAt: new Date().toISOString(),
+  });
+  
+  console.log(`📦 [MockDB] User created: ${email}`);
+  
+  return {
+    id: doc._id,
+    email: doc.email,
+    passwordHash: doc.passwordHash,
+    username: doc.username,
+    phone: doc.phone,
   };
-  users.push(user);
-  return user;
 }
 
 export function findUserById(id: string): User | undefined {
-  return users.find(u => u.id === id);
+  const doc = usersCollection.findById(id);
+  if (!doc) return undefined;
+  
+  return {
+    id: doc._id,
+    email: doc.email,
+    passwordHash: doc.passwordHash,
+    username: doc.username,
+    phone: doc.phone,
+  };
 }
 
