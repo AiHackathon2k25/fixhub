@@ -27,13 +27,13 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
   const shortSummary = result.insuranceSummary.split('.').slice(0, 2).join('.') + '.';
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100 animate-fade-in">
+    <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200 animate-fade-in">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-3xl">✅</span>
-        <h2 className="text-2xl font-bold text-gray-800">Analysis Complete</h2>
+        <h2 className="text-2xl font-bold text-slate-800">Analysis Complete</h2>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-4 space-y-3 mb-4">
+      <div className="bg-slate-50 rounded-lg p-4 space-y-3 mb-4">
         <div>
           <span className="text-sm font-medium text-gray-600">Category:</span>
           <p className="text-lg text-gray-900 capitalize">
@@ -69,14 +69,14 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={onOpenClaim}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          className="flex-1 bg-slate-700 hover:bg-slate-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
         >
           📄 Preview Full Claim
         </button>
         <button
           onClick={onSendTicket}
           disabled={isSendingTicket}
-          className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:transform-none disabled:shadow-md"
+          className="flex-1 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:transform-none disabled:shadow-md"
         >
           {isSendingTicket ? (
             <span className="flex items-center justify-center gap-2">

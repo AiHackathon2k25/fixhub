@@ -105,20 +105,20 @@ export default function Home() {
       <Testimonials />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-slate-800 to-slate-700 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl mb-8 text-blue-100">Join thousands of users who trust FixHub for their insurance claims</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth/signup"
-              className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-4 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:from-teal-600 hover:to-cyan-600 font-semibold py-4 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Create Your Account
             </Link>
             <Link
               href="/auth/login"
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold py-4 px-8 rounded-lg transition-all duration-200"
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-800 font-semibold py-4 px-8 rounded-lg transition-all duration-200"
             >
               Log In
             </Link>

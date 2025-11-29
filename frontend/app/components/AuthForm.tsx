@@ -99,7 +99,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter your username"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
                 disabled={isLoading}
               />
               {errors.username && (
@@ -119,7 +119,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
               disabled={isLoading}
             />
             {errors.email && (
@@ -139,7 +139,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+45 12 34 56 78"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
                 disabled={isLoading}
               />
               {errors.phone && (
@@ -159,7 +159,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min 6 characters"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
               disabled={isLoading}
             />
             {errors.password && (
@@ -179,7 +179,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Re-enter password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
                 disabled={isLoading}
               />
               {errors.confirmPassword && (
@@ -199,7 +199,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-md hover:shadow-lg"
           >
             {isLoading ? 'Please wait...' : mode === 'login' ? 'Log In' : 'Sign Up'}
           </button>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AuthForm from '@/app/components/AuthForm';
+import Logo from '@/app/components/Logo';
 import { apiPost } from '@/lib/apiClient';
 import { setToken } from '@/lib/auth';
 
@@ -30,10 +31,11 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block">
-            <h1 className="text-4xl font-bold text-blue-600 mb-2">FixHub</h1>
+          <Link href="/" className="inline-flex items-center justify-center gap-3 mb-4">
+            <Logo size="lg" />
+            <h1 className="text-4xl font-bold text-slate-800">FixHub</h1>
           </Link>
-          <p className="text-gray-600 text-lg">Welcome back! Log in to your account</p>
+          <p className="text-slate-600 text-lg">Welcome back! Log in to your account</p>
         </div>
 
         <AuthForm mode="login" onSubmit={handleLogin} />
@@ -53,7 +55,7 @@ export default function LoginPage() {
         <div className="text-center mt-6 space-y-4">
           <p className="text-gray-600">
             Don't have an account?{' '}
-            <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-semibold">
+            <Link href="/auth/signup" className="text-teal-600 hover:text-teal-700 font-semibold">
               Sign up
             </Link>
           </p>

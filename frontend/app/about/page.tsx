@@ -10,7 +10,7 @@ export default function AboutPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-purple-600 text-white py-20">
+      <section className="bg-gradient-to-br from-slate-800 to-slate-700 text-white py-20">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">About FixHub</h1>
           <p className="text-xl text-blue-100 max-w-3xl mx-auto">
@@ -36,7 +36,7 @@ export default function AboutPage() {
                 H
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">Hajar</h3>
-              <p className="text-blue-600 font-semibold mb-3">Co-Founder & Developer</p>
+              <p className="text-teal-600 font-semibold mb-3">Co-Founder & Developer</p>
               <p className="text-gray-600">
                 Full-stack developer specializing in AI integration and user experience design.
               </p>
@@ -118,7 +118,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-slate-800 to-slate-700 text-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">FixHub by the Numbers</h2>
@@ -177,18 +177,18 @@ export default function AboutPage() {
           <h2 className="text-4xl font-bold text-gray-800 mb-6">Ready to Experience FixHub?</h2>
           <p className="text-xl text-gray-600 mb-8">Join thousands of satisfied users today</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/auth/signup"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition-colors duration-200"
-            >
-              Get Started Free
-            </Link>
-            <Link
-              href="/contact"
-              className="bg-white hover:bg-gray-50 text-blue-600 font-semibold py-4 px-8 rounded-lg border-2 border-blue-600 transition-colors duration-200"
-            >
-              Contact Us
-            </Link>
+              <Link
+                href="/auth/signup"
+                className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+              >
+                Get Started Free
+              </Link>
+              <Link
+                href="/contact"
+                className="bg-white hover:bg-slate-50 text-slate-800 font-semibold py-4 px-8 rounded-lg border-2 border-slate-300 hover:border-slate-400 transition-colors duration-200"
+              >
+                Contact Us
+              </Link>
           </div>
         </div>
       </section>
