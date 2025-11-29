@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AuthForm from '@/app/components/AuthForm';
@@ -8,11 +9,17 @@ import { setToken } from '@/lib/auth';
 
 export default function LoginPage() {
   const router = useRouter();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleLogin = async (email: string, password: string) => {
     const response = await apiPost('/api/auth/login', { email, password });
     setToken(response.token);
-    router.push('/dashboard');
+    // Show success message
+    setSuccessMessage('Login successful! Redirecting to dashboard...');
+    // Redirect to dashboard after 1 second
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 1000);
   };
 
   const handleGoBack = () => {
@@ -30,6 +37,18 @@ export default function LoginPage() {
         </div>
 
         <AuthForm mode="login" onSubmit={handleLogin} />
+
+        {successMessage && (
+          <div className="mt-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-md animate-fade-in">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">✅</span>
+              <div>
+                <p className="font-bold">Success!</p>
+                <p>{successMessage}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="text-center mt-6 space-y-4">
           <p className="text-gray-600">

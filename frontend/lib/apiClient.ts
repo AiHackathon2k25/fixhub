@@ -14,30 +14,42 @@ export async function apiPost<T = any>(
   body: any,
   withAuth: boolean = false
 ): Promise<T> {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  };
+  try {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
 
-  if (withAuth) {
-    const token = getToken();
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+    if (withAuth) {
+      const token = getToken();
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
     }
+
+    console.log(`API Request: POST ${API_BASE_URL}${path}`);
+
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('API Error:', data);
+      throw new Error(data.error || `Request failed: ${response.statusText}`);
+    }
+
+    console.log('API Success:', data);
+    return data;
+  } catch (error) {
+    console.error('API Call Failed:', error);
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to server. Please make sure the backend is running on http://localhost:4000');
+    }
+    throw error;
   }
-
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || `Request failed: ${response.statusText}`);
-  }
-
-  return data;
 }
 
 export async function apiGet<T = any>(

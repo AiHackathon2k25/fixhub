@@ -1,18 +1,23 @@
 'use client';
 
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AuthForm from '@/app/components/AuthForm';
 import { apiPost } from '@/lib/apiClient';
-import { setToken } from '@/lib/auth';
 
 export default function SignupPage() {
   const router = useRouter();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSignup = async (email: string, password: string, username?: string, phone?: string) => {
-    const response = await apiPost('/api/auth/signup', { email, password, username, phone });
-    setToken(response.token);
-    router.push('/dashboard');
+    await apiPost('/api/auth/signup', { email, password, username, phone });
+    // Show success message
+    setSuccessMessage('Account created successfully! Redirecting to login...');
+    // Redirect to login after 2 seconds
+    setTimeout(() => {
+      router.push('/auth/login');
+    }, 2000);
   };
 
   const handleGoBack = () => {
@@ -30,6 +35,18 @@ export default function SignupPage() {
         </div>
 
         <AuthForm mode="signup" onSubmit={handleSignup} />
+
+        {successMessage && (
+          <div className="mt-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-md animate-fade-in">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">✅</span>
+              <div>
+                <p className="font-bold">Success!</p>
+                <p>{successMessage}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="text-center mt-6 space-y-4">
           <p className="text-gray-600">
