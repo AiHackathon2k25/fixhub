@@ -13,39 +13,39 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case 'minor':
-        return 'bg-green-100 text-green-800';
+        return 'badge badge-success';
       case 'moderate':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'badge badge-warning';
       case 'severe':
-        return 'bg-red-100 text-red-800';
+        return 'badge badge-error';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'badge bg-slate-100 text-slate-700';
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy':
-        return 'bg-emerald-100 text-emerald-800';
+        return 'badge badge-success';
       case 'medium':
-        return 'bg-amber-100 text-amber-800';
+        return 'badge badge-warning';
       case 'hard':
-        return 'bg-rose-100 text-rose-800';
+        return 'badge badge-error';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'badge bg-slate-100 text-slate-700';
     }
   };
 
   const getUrgencyColor = (urgency: string) => {
     switch (urgency) {
       case 'low':
-        return 'bg-blue-100 text-blue-800';
+        return 'badge badge-primary';
       case 'normal':
-        return 'bg-cyan-100 text-cyan-800';
+        return 'badge bg-sage-100 text-sage-700 border-sage-200';
       case 'high':
-        return 'bg-orange-100 text-orange-800';
+        return 'badge badge-warning';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'badge bg-slate-100 text-slate-700';
     }
   };
 
@@ -53,79 +53,81 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
   const shortSummary = result.insuranceSummary.split('.').slice(0, 2).join('.') + '.';
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200 animate-fade-in">
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-3xl">✅</span>
-        <h2 className="text-2xl font-bold text-slate-800">Analysis Complete</h2>
+    <div className="card p-8 animate-fade-in">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-soft">
+          <span className="text-2xl">✓</span>
+        </div>
+        <h2 className="font-display text-3xl text-slate-900">Analysis Complete</h2>
       </div>
 
       {/* New enhanced fields - prominent display */}
-      <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-5 mb-4 border-2 border-teal-200">
-        <div className="mb-3">
-          <h3 className="text-sm font-semibold text-teal-900 mb-1">Issue Summary</h3>
-          <p className="text-base text-slate-800 leading-relaxed">{result.issueSummary}</p>
+      <div className="bg-gradient-soft rounded-2xl p-6 mb-6 border border-primary-100">
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold text-primary-700 mb-2 uppercase tracking-wide">Issue Summary</h3>
+          <p className="text-lg text-slate-800 leading-relaxed font-serif">{result.issueSummary}</p>
         </div>
         
-        <div className="mb-3">
-          <h3 className="text-sm font-semibold text-teal-900 mb-1">Recommended Fix</h3>
-          <p className="text-base text-slate-800 leading-relaxed">{result.recommendedFix}</p>
+        <div className="mb-4">
+          <h3 className="text-sm font-semibold text-primary-700 mb-2 uppercase tracking-wide">Recommended Fix</h3>
+          <p className="text-lg text-slate-800 leading-relaxed font-serif">{result.recommendedFix}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${getDifficultyColor(result.difficulty)}`}>
-            🔧 Difficulty: {result.difficulty.toUpperCase()}
+          <span className={getDifficultyColor(result.difficulty)}>
+            <span className="mr-1">🔧</span> {result.difficulty}
           </span>
-          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${getUrgencyColor(result.urgency)}`}>
-            ⏰ Urgency: {result.urgency.toUpperCase()}
+          <span className={getUrgencyColor(result.urgency)}>
+            <span className="mr-1">⏰</span> {result.urgency}
           </span>
         </div>
       </div>
 
       {/* Existing fields - detailed information */}
-      <div className="bg-slate-50 rounded-lg p-4 space-y-3 mb-4">
+      <div className="bg-cream-200 rounded-2xl p-6 space-y-4 mb-6">
         <div>
-          <span className="text-sm font-medium text-gray-600">Category:</span>
-          <p className="text-lg text-gray-900 capitalize">
-            {result.category} - {result.subCategory}
+          <span className="text-sm font-medium text-slate-500 uppercase tracking-wide">Category</span>
+          <p className="text-lg text-slate-900 capitalize mt-1 font-medium">
+            {result.category} · {result.subCategory}
           </p>
         </div>
 
         <div>
-          <span className="text-sm font-medium text-gray-600">Severity:</span>
-          <div className="mt-1">
-            <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${getSeverityColor(result.severity)}`}>
-              {result.severity.toUpperCase()}
+          <span className="text-sm font-medium text-slate-500 uppercase tracking-wide">Severity</span>
+          <div className="mt-2">
+            <span className={getSeverityColor(result.severity)}>
+              {result.severity}
             </span>
           </div>
         </div>
 
         <div>
-          <span className="text-sm font-medium text-gray-600">Estimated Cost:</span>
-          <p className="text-lg font-semibold text-gray-900">{result.estimatedCost}</p>
+          <span className="text-sm font-medium text-slate-500 uppercase tracking-wide">Estimated Cost</span>
+          <p className="text-2xl font-bold text-slate-900 mt-1">{result.estimatedCost}</p>
         </div>
 
         <div>
-          <span className="text-sm font-medium text-gray-600">Recommendation:</span>
-          <p className="text-lg text-gray-900 capitalize">{result.repairOrReplace}</p>
+          <span className="text-sm font-medium text-slate-500 uppercase tracking-wide">Recommendation</span>
+          <p className="text-lg text-slate-900 capitalize mt-1 font-medium">{result.repairOrReplace}</p>
         </div>
 
-        <div>
-          <span className="text-sm font-medium text-gray-600">Insurance Summary:</span>
-          <p className="text-gray-700 mt-1">{shortSummary}</p>
+        <div className="pt-3 border-t border-slate-300">
+          <span className="text-sm font-medium text-slate-500 uppercase tracking-wide">Insurance Summary</span>
+          <p className="text-slate-700 mt-2 leading-relaxed font-serif text-sm">{shortSummary}</p>
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row gap-4">
         <button
           onClick={onOpenClaim}
-          className="flex-1 bg-slate-700 hover:bg-slate-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          className="btn-secondary flex-1 text-center"
         >
-          📄 Preview Full Claim
+          <span className="mr-2">📄</span> Preview Full Claim
         </button>
         <button
           onClick={onSendTicket}
           disabled={isSendingTicket}
-          className="flex-1 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:transform-none disabled:shadow-md"
+          className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           {isSendingTicket ? (
             <span className="flex items-center justify-center gap-2">
@@ -135,7 +137,7 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
               </svg>
               Sending...
             </span>
-          ) : '🎫 Send Ticket to Company'}
+          ) : <><span className="mr-2">🎫</span> Send Ticket to Company</>}
         </button>
       </div>
     </div>
