@@ -59,7 +59,7 @@ export default function AboutPage() {
               <div className="w-32 h-32 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-5xl font-bold">
                 F
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">Faouzia</h3>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">Fouziya</h3>
               <p className="text-pink-600 font-semibold mb-3">Co-Founder & Developer</p>
               <p className="text-gray-600">
                 Frontend specialist passionate about creating intuitive and beautiful interfaces.

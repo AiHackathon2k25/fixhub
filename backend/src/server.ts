@@ -8,6 +8,7 @@ import analyzeRouter from './routes/analyze';
 import ticketsRouter from './routes/tickets';
 import debugRouter from './routes/debug';
 import historyRouter from './routes/history';
+import uploadSessionRouter from './routes/uploadSession';
 import { initializeServiceProviders } from './services/serviceProviderService';
 import { migrateProviderInfo } from './scripts/migrateProviderInfo';
 
@@ -54,6 +55,7 @@ app.use('/api', analyzeRouter);
 app.use('/api', ticketsRouter);
 app.use('/api/debug', debugRouter);
 app.use('/api/history', historyRouter);
+app.use('/api/upload-session', uploadSessionRouter);
 
 // Health check
 app.get('/health', (req, res) => {

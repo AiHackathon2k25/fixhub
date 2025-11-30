@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { isMobileDevice } from '@/lib/deviceDetection';
+import QRCodeUpload from './QRCodeUpload';
 
 interface UploadFormProps {
   onAnalyze: (description: string, files: File[]) => Promise<void>;
@@ -11,6 +13,16 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
   const [description, setDescription] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<{ description?: string; file?: string }>({});
+  const [isMobile, setIsMobile] = useState(false);
+  const [showQRCode, setShowQRCode] = useState(false);
+  const [qrError, setQrError] = useState<string | null>(null);
+
+  // Detect device type on mount
+  useEffect(() => {
+    const mobile = isMobileDevice();
+    setIsMobile(mobile);
+    setShowQRCode(!mobile); // Show QR code by default on desktop
+  }, []);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -38,7 +50,7 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
     const newErrors: { description?: string; file?: string } = {};
 
     if (files.length === 0) {
-      newErrors.file = 'Please select at least one image file';
+      newErrors.file = 'Please select at least one file';
     }
 
     if (description.trim().length < 5) {
@@ -58,42 +70,98 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
     setFiles([]);
   };
 
+  const handleQRFilesReceived = async (receivedFiles: File[], receivedDescription: string) => {
+    // Files received from QR code session
+    setFiles(receivedFiles);
+    setDescription(receivedDescription);
+    setShowQRCode(false);
+    
+    // Automatically trigger analysis
+    await onAnalyze(receivedDescription, receivedFiles);
+  };
+
+  const handleQRError = (error: string) => {
+    setQrError(error);
+  };
+
+  // If on desktop and showing QR code, render QR component
+  if (!isMobile && showQRCode) {
+    return (
+      <div>
+        <QRCodeUpload 
+          onFilesReceived={handleQRFilesReceived}
+          onError={handleQRError}
+        />
+        {qrError && (
+          <div className="mt-4 bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg">
+            <p className="font-bold text-sm">Error</p>
+            <p className="text-sm">{qrError}</p>
+          </div>
+        )}
+        <button
+          onClick={() => setShowQRCode(false)}
+          className="w-full mt-4 text-sm text-slate-600 hover:text-slate-800 font-medium py-2 transition-colors"
+        >
+          Or upload from this computer instead
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
-      <h2 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
-        <span className="text-2xl">📸</span>
-        New Claim Submission
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-5">
+    <div className="card p-8">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-soft">
+          <span className="text-2xl">{isMobile ? '📸' : '💻'}</span>
+        </div>
+        <h2 className="font-display text-2xl text-slate-900">New Claim Submission</h2>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="file" className="block text-sm font-medium text-slate-700 mb-2">
-            Upload Images of Damaged Item * (Multiple files allowed)
+          <label htmlFor="file" className="block text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">
+            {isMobile ? 'Take a Photo or Choose from Gallery *' : 'Upload Files *'}
           </label>
+          {isMobile && (
+            <p className="text-sm text-slate-600 mb-3 font-serif">
+              📷 Tap to use camera · 🖼️ Swipe to choose from gallery
+            </p>
+          )}
           <input
             type="file"
             id="file"
-            accept="image/*"
+            accept="image/*,video/*"
+            capture={isMobile ? 'environment' : undefined}
             multiple
             onChange={handleFileChange}
-            className="block w-full text-sm text-slate-900 border-2 border-slate-300 rounded-lg cursor-pointer bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 p-3 hover:border-teal-400 transition-colors"
+            className="input-field cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-100 file:text-primary-700 hover:file:bg-primary-200"
             disabled={isLoading}
           />
+          {isMobile && (
+            <p className="text-sm text-primary-600 mt-2 font-serif">
+              💡 Tip: You can also record a short video of the issue
+            </p>
+          )}
           {errors.file && (
-            <p className="text-red-500 text-sm mt-1">{errors.file}</p>
+            <p className="text-rose-600 text-sm mt-2 font-medium">{errors.file}</p>
           )}
           
           {/* Display selected files */}
           {files.length > 0 && (
-            <div className="mt-3 space-y-2">
-              <p className="text-sm font-medium text-slate-700">Selected files ({files.length}):</p>
+            <div className="mt-4 space-y-3">
+              <p className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
+                Selected files ({files.length})
+              </p>
               <div className="flex flex-wrap gap-2">
                 {files.map((file, index) => (
-                  <div key={index} className="flex items-center gap-2 bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 text-sm">
-                    <span className="text-teal-700 truncate max-w-[200px]">{file.name}</span>
+                  <div key={index} className="flex items-center gap-2 bg-primary-50 border border-primary-200 rounded-xl px-4 py-2 shadow-sm">
+                    <span className="text-lg">
+                      {file.type.startsWith('video/') ? '🎥' : '📷'}
+                    </span>
+                    <span className="text-primary-700 truncate max-w-[200px] font-medium text-sm">{file.name}</span>
                     <button
                       type="button"
                       onClick={() => removeFile(index)}
-                      className="text-red-500 hover:text-red-700 font-bold"
+                      className="text-rose-500 hover:text-rose-700 font-bold text-lg ml-1 transition-colors"
                       disabled={isLoading}
                     >
                       ×
@@ -106,7 +174,7 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-slate-700 mb-2">
+          <label htmlFor="description" className="block text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">
             Description *
           </label>
           <textarea
@@ -115,18 +183,18 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
             value={description}
             onChange={handleDescriptionChange}
             placeholder="Describe the damage... (e.g., 'dishwasher door fell off', 'phone screen cracked')"
-            className="block w-full text-sm text-slate-900 border-2 border-slate-300 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 p-3 hover:border-teal-400 transition-colors"
+            className="input-field font-serif resize-none"
             disabled={isLoading}
           />
           {errors.description && (
-            <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+            <p className="text-rose-600 text-sm mt-2 font-medium">{errors.description}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:transform-none disabled:shadow-none"
+          className="btn-primary w-full text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           {isLoading ? (
             <span className="flex items-center justify-center gap-2">
@@ -136,9 +204,18 @@ export default function UploadForm({ onAnalyze, isLoading }: UploadFormProps) {
               </svg>
               Analyzing...
             </span>
-          ) : '🔍 Analyze Damage'}
+          ) : <><span className="mr-2">🔍</span> Analyze Damage</>}
         </button>
       </form>
+
+      {!isMobile && !showQRCode && (
+        <button
+          onClick={() => setShowQRCode(true)}
+          className="w-full mt-6 text-sm text-slate-600 hover:text-primary-600 font-medium py-3 transition-colors border-t border-slate-200 pt-6"
+        >
+          <span className="mr-2">📱</span> Or scan QR code to upload from phone
+        </button>
+      )}
     </div>
   );
 }

@@ -1,0 +1,14 @@
+# FixHub Backend Environment Variables
+
+# JWT Secret for authentication
+JWT_SECRET=fixhub-dev-secret-key-change-in-production
+
+# Google Gemini API Key for FREE AI-powered damage analysis
+GEMINI_API_KEY=AIzaSyDtufbkxuo_dCZti1wUARmPW_xFpjj4lFI
+
+
+
+# Cloudinary for Image Storage (FREE)
+CLOUDINARY_CLOUD_NAME=dg6bvmi2c
+CLOUDINARY_API_KEY=873844987667934
+CLOUDINARY_API_SECRET=IcFeVhealUDyxClTH_mi2Kwlgoo
