@@ -1,0 +1,170 @@
+[
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "my washing machine, is broken \n",
+    "analysis": {
+      "category": "appliance",
+      "subCategory": "washing machine",
+      "severity": "moderate",
+      "estimatedCost": "2000–5000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The policyholder reports their washing machine is non-functional. No specific visible damage has been reported at this time. An inspection by a qualified appliance technician is recommended to diagnose the fault and determine the appropriate repair action."
+    },
+    "analysisHistoryId": "analysisHistory_1764439602936_5e07re0su",
+    "createdAt": "2025-11-29T18:06:46.222Z",
+    "_id": "tickets_1764439606222_nivjhxoui",
+    "providerId": "serviceProviders_1764439736689_jq15q3cvq",
+    "providerName": "Lars Hansen",
+    "providerEmail": "lars@fixhub-appliances.dk",
+    "status": "assigned",
+    "providerCompany": "FixHub Appliance Repair",
+    "providerCategory": "appliance"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "my laptop is broken",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "laptop",
+      "severity": "moderate",
+      "estimatedCost": "2500–5500 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The policyholder reports that their laptop is broken. No specific visible damage was detailed in the initial report. An assessment by a qualified technician is recommended to determine the extent of the damage and whether repair is feasible."
+    },
+    "analysisHistoryId": "analysisHistory_1764440786093_yatz459na",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-29T18:26:28.075Z",
+    "_id": "tickets_1764440788075_wxzy6fg9n"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "my laptop is broken",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "laptop",
+      "severity": "moderate",
+      "estimatedCost": "2500–5500 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The policyholder reports that their laptop is broken. No specific visible damage was detailed in the initial report. An assessment by a qualified technician is recommended to determine the extent of the damage and whether repair is feasible."
+    },
+    "analysisHistoryId": "analysisHistory_1764440786093_yatz459na",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-29T18:26:37.759Z",
+    "_id": "tickets_1764440797759_97fcq3hkw"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "my loptop is broken",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "laptop",
+      "severity": "moderate",
+      "estimatedCost": "2000–5000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The customer has reported that their laptop is broken. As the specific nature of the damage is not detailed, the device is presumed to be non-functional or significantly impaired. Further technical assessment is required to determine the most cost-effective solution, whether repair or replacement."
+    },
+    "analysisHistoryId": "analysisHistory_1764441051754_leoa181j2",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-29T18:30:59.364Z",
+    "_id": "tickets_1764441059365_s3u0n8zm8"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "I have a problem in my washine machine",
+    "analysis": {
+      "category": "appliance",
+      "subCategory": "washing machine",
+      "severity": "moderate",
+      "estimatedCost": "1500–3000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The customer reports a general problem with their washing machine. No specific visible damage or details regarding the malfunction have been provided. Further assessment by a qualified technician is recommended to diagnose the issue and determine the appropriate course of action."
+    },
+    "analysisHistoryId": "analysisHistory_1764441220671_czjufzjgg",
+    "providerId": "serviceProviders_1764439736689_jq15q3cvq",
+    "providerName": "Lars Hansen",
+    "providerEmail": "lars@fixhub-appliances.dk",
+    "providerCompany": "FixHub Appliance Repair",
+    "providerCategory": "appliance",
+    "status": "assigned",
+    "createdAt": "2025-11-29T18:33:55.236Z",
+    "_id": "tickets_1764441235236_wt4g3qcnx"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "My laptop's screen is broken",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "laptop",
+      "severity": "moderate",
+      "estimatedCost": "2000–4000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The customer has reported that their laptop's screen is broken, indicating significant damage to the display component. This issue typically impairs device usability and is commonly addressed through a screen replacement. Further assessment by a qualified technician is recommended to confirm repair feasibility and precise costs."
+    },
+    "analysisHistoryId": "analysisHistory_1764441355004_km61h8c5c",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-29T18:36:01.823Z",
+    "_id": "tickets_1764441361823_3g6t7i6os"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "theres something wrong with my phone",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "smartphone",
+      "severity": "severe",
+      "estimatedCost": "1200–2000 DKK",
+      "repairOrReplace": "replace",
+      "insuranceSummary": "Customer reports that the smartphone was dropped, resulting in a cracked front display and impaired touch functionality. The device shows visible damage to the screen and may have internal component impact. Given the extent of the damage, full screen replacement or device replacement is recommended rather than minor repair."
+    },
+    "analysisHistoryId": "analysisHistory_1764493146381_0b6j02tpn",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-30T08:59:11.489Z",
+    "_id": "tickets_1764493151489_h1rnwlkaa"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "theres this problem with my phone",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "smartphone",
+      "severity": "severe",
+      "estimatedCost": "1200–2000 DKK",
+      "repairOrReplace": "replace",
+      "insuranceSummary": "Customer reports that the smartphone was dropped, resulting in a cracked front display and impaired touch functionality. The device shows visible damage to the screen and may have internal component impact. Given the extent of the damage, full screen replacement or device replacement is recommended rather than minor repair."
+    },
+    "analysisHistoryId": "analysisHistory_1764495192078_i8ccuhni3",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-30T09:33:22.047Z",
+    "_id": "tickets_1764495202047_4ky2d6kfo"
+  }
+]

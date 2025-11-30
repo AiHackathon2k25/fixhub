@@ -1,0 +1,50 @@
+[
+  {
+    "status": "pending",
+    "files": [],
+    "description": "",
+    "createdAt": "2025-11-30T14:03:06.022Z",
+    "expiresAt": "2025-11-30T14:13:06.022Z",
+    "_id": "uploadSessions_1764511386023_vrv4mj1j5"
+  },
+  {
+    "status": "pending",
+    "files": [],
+    "description": "",
+    "createdAt": "2025-11-30T14:03:06.027Z",
+    "expiresAt": "2025-11-30T14:13:06.027Z",
+    "_id": "uploadSessions_1764511386027_wihhgd07f"
+  },
+  {
+    "status": "pending",
+    "files": [],
+    "description": "",
+    "createdAt": "2025-11-30T14:03:20.238Z",
+    "expiresAt": "2025-11-30T14:13:20.238Z",
+    "_id": "uploadSessions_1764511400238_nh0mplrxp"
+  },
+  {
+    "status": "pending",
+    "files": [],
+    "description": "",
+    "createdAt": "2025-11-30T14:03:20.245Z",
+    "expiresAt": "2025-11-30T14:13:20.245Z",
+    "_id": "uploadSessions_1764511400245_ml180e0u9"
+  },
+  {
+    "status": "pending",
+    "files": [],
+    "description": "",
+    "createdAt": "2025-11-30T14:03:29.180Z",
+    "expiresAt": "2025-11-30T14:13:29.180Z",
+    "_id": "uploadSessions_1764511409180_6s6ck89b3"
+  },
+  {
+    "status": "pending",
+    "files": [],
+    "description": "",
+    "createdAt": "2025-11-30T14:03:29.190Z",
+    "expiresAt": "2025-11-30T14:13:29.190Z",
+    "_id": "uploadSessions_1764511409190_jbe5hv2cn"
+  }
+]
