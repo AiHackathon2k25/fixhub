@@ -13,7 +13,7 @@ import { initializeServiceProviders } from './services/serviceProviderService';
 import { migrateProviderInfo } from './scripts/migrateProviderInfo';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT: number = parseInt(process.env.PORT ?? "4000", 10);
 
 // Log environment status
 const JWT_SECRET = process.env.JWT_SECRET;
