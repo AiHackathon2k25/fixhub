@@ -119,22 +119,22 @@ export default function DashboardPage() {
 
   return (
     <ProtectedClient>
-      <div className="min-h-screen bg-gradient-cream">
+      <div className="min-h-screen bg-slate-50">
         <DashboardNav />
         
         <div className="max-w-7xl mx-auto px-4 py-8">
           {/* Welcome Banner */}
-          <div className="mb-8 bg-gradient-primary text-white rounded-3xl p-10 shadow-soft-xl">
+          <div className="mb-8 bg-gradient-to-r from-slate-800 to-slate-700 text-white rounded-2xl p-8 shadow-xl border border-slate-600">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="font-display text-4xl mb-3">Welcome to Your Dashboard</h1>
-                <p className="text-primary-50 text-lg font-serif">File a new claim or manage your existing claims below</p>
+                <h1 className="text-3xl font-bold mb-2">Welcome to Your Dashboard</h1>
+                <p className="text-slate-300">File a new claim or manage your existing claims below</p>
               </div>
               <div className="hidden md:block">
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 shadow-soft">
+                <div className="bg-slate-700/50 backdrop-blur rounded-xl p-4 border border-slate-600">
                   <div className="text-center">
-                    <div className="text-4xl font-bold">5</div>
-                    <div className="text-sm text-primary-50 mt-2 font-medium">Active Claims</div>
+                    <div className="text-3xl font-bold text-teal-400">5</div>
+                    <div className="text-xs text-slate-400 mt-1">Active Claims</div>
                   </div>
                 </div>
               </div>
@@ -149,24 +149,24 @@ export default function DashboardPage() {
               <UploadForm onAnalyze={handleAnalyze} isLoading={isLoading} />
 
               {error && (
-            <div className="bg-rose-50 border-l-4 border-rose-500 text-rose-800 px-6 py-4 rounded-2xl mb-6 shadow-soft animate-fade-in">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">❌</span>
+            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 shadow-md animate-fade-in">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">❌</span>
                 <div>
-                  <p className="font-bold text-lg">Error</p>
-                  <p className="font-serif">{error}</p>
+                  <p className="font-bold">Error</p>
+                  <p>{error}</p>
                 </div>
               </div>
             </div>
           )}
 
               {successMessage && (
-                <div className="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800 px-6 py-4 rounded-2xl shadow-soft animate-fade-in">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">✅</span>
+                <div className="bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-lg shadow-md animate-fade-in">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">✅</span>
                     <div>
-                      <p className="font-bold text-lg">Success!</p>
-                      <p className="font-serif">{successMessage}</p>
+                      <p className="font-bold">Success!</p>
+                      <p>{successMessage}</p>
                     </div>
                   </div>
                 </div>
@@ -187,39 +187,39 @@ export default function DashboardPage() {
               {/* Analysis History */}
               <AnalysisHistory onRefresh={historyRefresh} />
               {/* Quick Stats */}
-              <div className="card p-6">
-                <h3 className="font-display text-xl text-slate-900 mb-5">Quick Stats</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-4 bg-cream-100 rounded-xl hover:shadow-soft transition-all">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center shadow-sm">
-                        <span className="text-2xl">✅</span>
+              <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                <h3 className="text-lg font-semibold text-slate-800 mb-4">Quick Stats</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+                        <span className="text-xl">✅</span>
                       </div>
                       <div>
-                        <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Completed</div>
-                        <div className="text-2xl font-bold text-slate-900">12</div>
+                        <div className="text-sm text-slate-600">Completed</div>
+                        <div className="text-lg font-bold text-slate-800">12</div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-cream-100 rounded-xl hover:shadow-soft transition-all">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center shadow-sm">
-                        <span className="text-2xl">⏳</span>
+                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <span className="text-xl">⏳</span>
                       </div>
                       <div>
-                        <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Pending</div>
-                        <div className="text-2xl font-bold text-slate-900">5</div>
+                        <div className="text-sm text-slate-600">Pending</div>
+                        <div className="text-lg font-bold text-slate-800">5</div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-cream-100 rounded-xl hover:shadow-soft transition-all">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center shadow-sm">
-                        <span className="text-2xl">📊</span>
+                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span className="text-xl">📊</span>
                       </div>
                       <div>
-                        <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Total Claims</div>
-                        <div className="text-2xl font-bold text-slate-900">17</div>
+                        <div className="text-sm text-slate-600">Total Claims</div>
+                        <div className="text-lg font-bold text-slate-800">17</div>
                       </div>
                     </div>
                   </div>
