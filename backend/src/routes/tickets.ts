@@ -7,8 +7,22 @@ import { mockDB } from '../mockDB';
 import { TicketDocument } from '../models/Ticket';
 import { getUserHistory } from '../services/analysisHistoryService';
 import { getProviderForCategory, initializeServiceProviders } from '../services/serviceProviderService';
+import { Category } from '../types/analysis';
 
 const router = Router();
+
+/**
+ * Helper function to normalize category values
+ * Maps legacy "vvs" to "plumbing" for compatibility
+ */
+const normalizeCategory = (
+  category: "appliance" | "electronics" | "plumbing" | "furniture" | "other" | "vvs"
+): Category => {
+  if (category === "vvs") {
+    return "plumbing";
+  }
+  return category as Category;
+};
 
 const ticketsCollection = mockDB.collection<TicketDocument>('tickets');
 
@@ -17,6 +31,12 @@ initializeServiceProviders();
 
 // Validation schema for AnalysisResult
 const analysisResultSchema = z.object({
+  // New enhanced fields (optional for backward compatibility)
+  issueSummary: z.string().optional(),
+  recommendedFix: z.string().optional(),
+  difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+  urgency: z.enum(['low', 'normal', 'high']).optional(),
+  // Existing fields
   category: z.enum(['appliance', 'plumbing', 'electronics', 'furniture', 'other', 'vvs']), // Include all categories
   subCategory: z.string(),
   severity: z.enum(['minor', 'moderate', 'severe']),
@@ -50,8 +70,9 @@ router.post('/tickets', authMiddleware, async (req: AuthRequest, res: Response) 
     const userHistory = getUserHistory(userId, 1);
     const latestAnalysis = userHistory.length > 0 ? userHistory[0] : null;
 
-    // Assign to appropriate service provider based on category
-    const provider = getProviderForCategory(analysis.category);
+    // Normalize category (map "vvs" to "plumbing") and assign to service provider
+    const normalizedCategory = normalizeCategory(analysis.category);
+    const provider = getProviderForCategory(normalizedCategory);
     
     if (!provider) {
       console.error('❌ [Tickets] No service provider found for category:', analysis.category);
@@ -125,12 +146,26 @@ router.post('/tickets', authMiddleware, async (req: AuthRequest, res: Response) 
       console.warn('⚠️  [Tickets] No latest analysis found to link ticket');
     }
 
+    // Ensure analysis object has all required fields for AnalysisResult
+    const fullAnalysis = {
+      issueSummary: analysis.issueSummary ?? "Issue summary not available",
+      recommendedFix: analysis.recommendedFix ?? "Recommended fix not available",
+      difficulty: analysis.difficulty ?? "medium",
+      urgency: analysis.urgency ?? "normal",
+      category: normalizedCategory,
+      subCategory: analysis.subCategory,
+      severity: analysis.severity,
+      estimatedCost: analysis.estimatedCost,
+      repairOrReplace: analysis.repairOrReplace,
+      insuranceSummary: analysis.insuranceSummary,
+    };
+
     // Create ticket object for Zendesk stub
     const ticket: Ticket = {
       id: ticketDoc._id,
       userId,
       description,
-      analysis,
+      analysis: fullAnalysis,
       createdAt: new Date(ticketDoc.createdAt),
     };
 

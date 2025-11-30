@@ -31,3 +31,10 @@ export function isLoggedIn(): boolean {
   return getToken() !== null;
 }
 
+export function logout(): void {
+  clearToken();
+  if (typeof window !== 'undefined') {
+    window.location.href = '/auth/login';
+  }
+}
+

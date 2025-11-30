@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
+import dynamic from 'next/dynamic';
+
+const QRCode = dynamic(
+  () => import('react-qr-code'),
+  { ssr: false }
+);
 
 interface QRCodeUploadProps {
   onFilesReceived: (files: File[], description: string) => void;
@@ -25,8 +30,9 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
 
   const createSession = async () => {
     try {
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       const token = localStorage.getItem('fixhub_token');
-      const response = await fetch('http://localhost:4000/api/upload-session/create', {
+      const response = await fetch(`${API_BASE_URL}/api/upload-session/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -62,8 +68,9 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
 
     const pollInterval = setInterval(async () => {
       try {
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
         const token = localStorage.getItem('fixhub_token');
-        const response = await fetch(`http://localhost:4000/api/upload-session/${sessionId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/upload-session/${sessionId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -106,8 +113,9 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
     if (!sessionId) return;
 
     try {
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       const token = localStorage.getItem('fixhub_token');
-      const response = await fetch(`http://localhost:4000/api/upload-session/${sessionId}/files`, {
+      const response = await fetch(`${API_BASE_URL}/api/upload-session/${sessionId}/files`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -193,71 +201,78 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
   }
 
   return (
-    <div className="card p-8">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-12 h-12 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-soft">
-          <span className="text-2xl">📱</span>
-        </div>
-        <h2 className="font-display text-2xl text-slate-900">Scan QR Code to Upload</h2>
-      </div>
+    <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+      <h2 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
+        <span className="text-2xl">📱</span>
+        Scan QR Code to Upload from Phone
+      </h2>
 
-      <div className="bg-gradient-soft rounded-2xl p-8 mb-6 border border-primary-100">
+      <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-6 mb-4">
         {qrCodeUrl && (
           <div className="flex flex-col items-center">
+<<<<<<< HEAD
             <div className="bg-white p-6 rounded-2xl shadow-soft-lg mb-4">
+              <QRCode 
+                value={qrCodeUrl} 
+                size={220}
+                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                viewBox={`0 0 220 220`}
+=======
+            <div className="bg-white p-4 rounded-lg shadow-md mb-4">
               <QRCodeSVG 
                 value={qrCodeUrl} 
-                size={220} 
+                size={200} 
                 level="M"
                 includeMargin={true}
+>>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
               />
             </div>
-            <p className="text-base text-slate-800 font-medium text-center mb-2 font-serif">
+            <p className="text-sm text-slate-700 font-medium text-center mb-2">
               Scan this code with your phone's camera
             </p>
-            <p className="text-sm text-slate-500 text-center">
+            <p className="text-xs text-slate-500 text-center">
               Session expires in 10 minutes
             </p>
           </div>
         )}
       </div>
 
-      <div className="space-y-4 mb-6">
-        <div className="flex items-start gap-4">
-          <span className="flex-shrink-0 w-6 h-6 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center text-sm font-bold">1</span>
-          <p className="text-slate-600 font-serif">Open your phone's camera app</p>
+      <div className="space-y-3">
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">1.</span>
+          <p className="text-slate-600">Open your phone's camera app</p>
         </div>
-        <div className="flex items-start gap-4">
-          <span className="flex-shrink-0 w-6 h-6 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center text-sm font-bold">2</span>
-          <p className="text-slate-600 font-serif">Point it at the QR code above</p>
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">2.</span>
+          <p className="text-slate-600">Point it at the QR code above</p>
         </div>
-        <div className="flex items-start gap-4">
-          <span className="flex-shrink-0 w-6 h-6 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center text-sm font-bold">3</span>
-          <p className="text-slate-600 font-serif">Tap the notification to open the upload page</p>
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">3.</span>
+          <p className="text-slate-600">Tap the notification to open the upload page</p>
         </div>
-        <div className="flex items-start gap-4">
-          <span className="flex-shrink-0 w-6 h-6 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center text-sm font-bold">4</span>
-          <p className="text-slate-600 font-serif">Take photos/videos and describe the damage</p>
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">4.</span>
+          <p className="text-slate-600">Take photos/videos and describe the damage</p>
         </div>
       </div>
 
-      <div className="p-5 bg-cream-200 rounded-xl border border-slate-200">
-        <div className="flex items-center justify-center gap-3">
-          <div className="animate-pulse w-3 h-3 bg-primary-500 rounded-full"></div>
-          <p className="text-sm text-slate-700 font-medium">
+      <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+        <div className="flex items-center justify-center gap-2">
+          <div className="animate-pulse w-3 h-3 bg-teal-500 rounded-full"></div>
+          <p className="text-sm text-slate-600 font-medium">
             Waiting for upload from phone...
           </p>
         </div>
-        <p className="text-xs text-slate-500 text-center mt-2 font-serif">
-          Checking every 2 seconds · {pollingAttempts}/{MAX_POLLING_ATTEMPTS}
+        <p className="text-xs text-slate-500 text-center mt-2">
+          Checking every 2 seconds ({pollingAttempts}/{MAX_POLLING_ATTEMPTS})
         </p>
       </div>
 
       <button
         onClick={retry}
-        className="w-full mt-6 text-sm text-slate-600 hover:text-primary-600 font-medium py-3 transition-colors border-t border-slate-200 pt-6"
+        className="w-full mt-4 text-sm text-slate-600 hover:text-slate-800 font-medium py-2 transition-colors"
       >
-        <span className="mr-2">🔄</span> Generate New QR Code
+        🔄 Generate New QR Code
       </button>
     </div>
   );

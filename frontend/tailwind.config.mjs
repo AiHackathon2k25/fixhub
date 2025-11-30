@@ -6,29 +6,46 @@ export default {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+<<<<<<< HEAD
     extend: {
       colors: {
-        // Soft teal/cyan palette inspired by the template
+        // Professional colors - Blue/Purple gradient template (Aternus 42 style)
         primary: {
-          50: '#F0F9F9',
-          100: '#D9F0F0',
-          200: '#B3E0E0',
-          300: '#8DD1D1',
-          400: '#6EC4C4',
-          500: '#7BA8A8',  // Main teal
-          600: '#5A8B8B',
-          700: '#446B6B',
-          800: '#2E4A4A',
-          900: '#1C2D2D',
+          50: '#EEF2FF',
+          100: '#E0E7FF',
+          200: '#C7D2FE',
+          300: '#A5B4FC',
+          400: '#818CF8',
+          500: '#6366F1',  // Vibrant blue-purple
+          600: '#4F46E5',
+          700: '#4338CA',
+          800: '#3730A3',
+          900: '#312E81',
         },
-        // Soft background colors
+        accent: {
+          blue: '#6366F1',  // Primary blue-purple
+          purple: '#8B5CF6', // Purple accent
+          dark: '#1E293B',   // Dark grey for text
+          light: '#F8FAFC',  // Off-white
+        },
+        // Off-white/light beige backgrounds
         cream: {
-          50: '#FDFCFB',
-          100: '#FAF7F4',
-          200: '#F5F1ED',
-          300: '#F0EBE6',
-          400: '#EBE5DF',
-          500: '#E6DFD8',
+          50: '#FEFDFB',
+          100: '#FDFBF7',
+          200: '#FBF7EF',
+          300: '#F9F3E7',
+          400: '#F7EFDF',
+          500: '#F5EBD7',
+        },
+        // Soft pastel blue (hero and section backgrounds)
+        sky: {
+          50: '#F0F9FF',
+          100: '#E0F2FE',
+          200: '#BAE6FD',
+          300: '#7DD3FC',
+          400: '#38BDF8',
+          500: '#0EA5E9',
+          600: '#0284C7',
         },
         // Muted slate for text and UI elements
         slate: {
@@ -75,6 +92,9 @@ export default {
         '3xl': '2rem',
       },
     },
+=======
+    extend: {},
+>>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
   },
   plugins: [],
 };

@@ -124,5 +124,48 @@
     "status": "assigned",
     "createdAt": "2025-11-29T18:36:01.823Z",
     "_id": "tickets_1764441361823_3g6t7i6os"
+
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "theres something wrong with my phone",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "smartphone",
+      "severity": "severe",
+      "estimatedCost": "1200–2000 DKK",
+      "repairOrReplace": "replace",
+      "insuranceSummary": "Customer reports that the smartphone was dropped, resulting in a cracked front display and impaired touch functionality. The device shows visible damage to the screen and may have internal component impact. Given the extent of the damage, full screen replacement or device replacement is recommended rather than minor repair."
+    },
+    "analysisHistoryId": "analysisHistory_1764493146381_0b6j02tpn",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-30T08:59:11.489Z",
+    "_id": "tickets_1764493151489_h1rnwlkaa"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "theres this problem with my phone",
+    "analysis": {
+      "category": "electronics",
+      "subCategory": "smartphone",
+      "severity": "severe",
+      "estimatedCost": "1200–2000 DKK",
+      "repairOrReplace": "replace",
+      "insuranceSummary": "Customer reports that the smartphone was dropped, resulting in a cracked front display and impaired touch functionality. The device shows visible damage to the screen and may have internal component impact. Given the extent of the damage, full screen replacement or device replacement is recommended rather than minor repair."
+    },
+    "analysisHistoryId": "analysisHistory_1764495192078_i8ccuhni3",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics",
+    "status": "assigned",
+    "createdAt": "2025-11-30T09:33:22.047Z",
+    "_id": "tickets_1764495202047_4ky2d6kfo"
   }
 ]
