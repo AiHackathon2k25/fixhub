@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,13 +9,29 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #FAF7F4;
+    background-color: #FFFFFF;
     color: #1E293B;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
-  h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #0F172A;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
   }
 
   * {
@@ -134,17 +150,159 @@
     animation: scaleIn 0.4s ease-out;
   }
 
-  /* Soft gradient backgrounds */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes gradientSlow {
+    0%, 100% {
+      background-position: 0% 50%;
+      opacity: 1;
+    }
+    25% {
+      background-position: 50% 0%;
+      opacity: 0.8;
+    }
+    50% {
+      background-position: 100% 50%;
+      opacity: 1;
+    }
+    75% {
+      background-position: 50% 100%;
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%);
+    }
+  }
+
+  @keyframes floatSlow {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    66% {
+      transform: translateY(10px) translateX(-10px);
+    }
+  }
+
+  @keyframes floatSlowDelayed {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(15px) translateX(-15px);
+    }
+    66% {
+      transform: translateY(-10px) translateX(15px);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 0.15;
+    }
+  }
+
+  @keyframes gradientText {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient-slow {
+    background-size: 200% 200%;
+    animation: gradientSlow 8s ease infinite;
+  }
+
+  .animate-float-slow {
+    animation: floatSlow 12s ease-in-out infinite;
+  }
+
+  .animate-float-slow-delayed {
+    animation: floatSlowDelayed 15s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1.2s ease-out;
+  }
+
+  .animate-fade-in-up-delayed {
+    animation: fadeInUp 1.2s ease-out 0.3s both;
+  }
+
+  .animate-fade-in-up-delayed-2 {
+    animation: fadeInUp 1.2s ease-out 0.6s both;
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 4s ease-in-out infinite;
+  }
+
+  .animate-gradient-text {
+    background-size: 200% 200%;
+    animation: gradientText 3s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 8s ease-in-out infinite;
+  }
+
+  /* Soft gradient backgrounds - Template style */
   .bg-gradient-soft {
-    background: linear-gradient(135deg, #F0F9F9 0%, #FAF7F4 100%);
+    background: linear-gradient(135deg, #E8F4F8 0%, #FEFDFB 100%);
   }
 
   .bg-gradient-primary {
-    background: linear-gradient(135deg, #7BA8A8 0%, #6EC4C4 100%);
+    background: linear-gradient(135deg, #2C7A9E 0%, #236285 100%);
   }
 
   .bg-gradient-cream {
-    background: linear-gradient(180deg, #FDFCFB 0%, #F5F1ED 100%);
+    background: linear-gradient(180deg, #FEFDFB 0%, #FDFBF7 100%);
+  }
+
+  /* Professional backgrounds */
+  .bg-pastel-blue {
+    background-color: #F0F9FF;
   }
 
   /* Soft grid pattern */
@@ -153,6 +311,14 @@
       linear-gradient(to right, rgba(123, 168, 168, 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(123, 168, 168, 0.05) 1px, transparent 1px);
     background-size: 40px 40px;
+  }
+
+  /* Grid pattern for CTA section */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 
   /* Text gradients */

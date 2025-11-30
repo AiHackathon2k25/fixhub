@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
+import dynamic from 'next/dynamic';
+
+const QRCode = dynamic(
+  () => import('react-qr-code'),
+  { ssr: false }
+);
 
 interface QRCodeUploadProps {
   onFilesReceived: (files: File[], description: string) => void;
@@ -205,11 +210,11 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
         {qrCodeUrl && (
           <div className="flex flex-col items-center">
             <div className="bg-white p-6 rounded-2xl shadow-soft-lg mb-4">
-              <QRCodeSVG 
+              <QRCode 
                 value={qrCodeUrl} 
-                size={220} 
-                level="M"
-                includeMargin={true}
+                size={220}
+                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                viewBox={`0 0 220 220`}
               />
             </div>
             <p className="text-base text-slate-800 font-medium text-center mb-2 font-serif">

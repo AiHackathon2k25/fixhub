@@ -69,7 +69,7 @@ initializeServiceProviders();
 migrateProviderInfo();
 
 // Start server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`✅ Backend server running on http://localhost:${PORT}`);
   console.log('📍 Endpoints:');
   console.log('   POST /api/auth/signup');
@@ -78,5 +78,21 @@ app.listen(PORT, () => {
   console.log('   POST /api/analyze (protected)');
   console.log('   POST /api/tickets (protected)');
   console.log('   GET  /api/tickets (protected)');
+});
+
+server.on('error', (error: NodeJS.ErrnoException) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`\n❌ Error: Port ${PORT} is already in use!\n`);
+    console.error('💡 Solutions:');
+    console.error(`   1. Kill the process using port ${PORT}:`);
+    console.error(`      PowerShell: Get-NetTCPConnection -LocalPort ${PORT} | Select-Object -ExpandProperty OwningProcess | ForEach-Object { Stop-Process -Id $_ -Force }`);
+    console.error(`      CMD: netstat -ano | findstr :${PORT} (then use taskkill /PID <pid> /F)`);
+    console.error(`   2. Use a different port by setting PORT in your .env file`);
+    console.error(`   3. Check if another instance of the server is running\n`);
+    process.exit(1);
+  } else {
+    console.error('❌ Server error:', error);
+    process.exit(1);
+  }
 });
 

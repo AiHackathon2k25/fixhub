@@ -81,8 +81,8 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+      <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-8">
+        <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
           {mode === 'login' ? 'Log In' : 'Sign Up'}
         </h2>
 
@@ -90,7 +90,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
           {/* Username (signup only) */}
           {mode === 'signup' && (
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="username" className="block text-sm font-medium text-slate-700 mb-1">
                 Username *
               </label>
               <input
@@ -99,7 +99,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter your username"
-                className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 disabled={isLoading}
               />
               {errors.username && (
@@ -110,7 +110,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
               Email *
             </label>
             <input
@@ -119,7 +119,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+              className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
               disabled={isLoading}
             />
             {errors.email && (
@@ -130,7 +130,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
           {/* Phone (signup only) */}
           {mode === 'signup' && (
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">
                 Phone Number *
               </label>
               <input
@@ -139,7 +139,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+45 12 34 56 78"
-                className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 disabled={isLoading}
               />
               {errors.phone && (
@@ -150,7 +150,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
               Password *
             </label>
             <input
@@ -159,7 +159,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min 6 characters"
-              className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+              className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
               disabled={isLoading}
             />
             {errors.password && (
@@ -170,7 +170,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
           {/* Confirm Password (signup only) */}
           {mode === 'signup' && (
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-1">
                 Confirm Password *
               </label>
               <input
@@ -179,7 +179,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Re-enter password"
-                className="w-full px-3 py-2 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 disabled={isLoading}
               />
               {errors.confirmPassword && (
@@ -190,7 +190,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
 
           {/* Server error */}
           {serverError && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+            <div className="bg-rose-50 border-l-4 border-rose-500 text-rose-800 px-4 py-3 rounded-lg">
               {serverError}
             </div>
           )}
@@ -199,7 +199,7 @@ export default function AuthForm({ mode, onSubmit }: AuthFormProps) {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-md hover:shadow-lg"
+            className="w-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 disabled:bg-slate-400 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             {isLoading ? 'Please wait...' : mode === 'login' ? 'Log In' : 'Sign Up'}
           </button>
