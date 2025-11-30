@@ -43,10 +43,40 @@ if (!CLOUDINARY_CONFIGURED) {
 }
 
 // Middleware
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true,
-}));
+// CORS configuration - allow requests from localhost and Vercel
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://fixhub-gilt.vercel.app',
+  // Add more Vercel preview URLs if needed
+  process.env.FRONTEND_URL,
+].filter(Boolean) as string[]; // Remove undefined values
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        // Also allow any Vercel preview deployment
+        if (origin.includes('.vercel.app')) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: false, // We are not using cookies for now
+  })
+);
+
+// Handle preflight requests explicitly
+app.options('*', cors());
+
 app.use(express.json());
 
 // Routes
