@@ -25,8 +25,9 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
 
   const createSession = async () => {
     try {
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       const token = localStorage.getItem('fixhub_token');
-      const response = await fetch('http://localhost:4000/api/upload-session/create', {
+      const response = await fetch(`${API_BASE_URL}/api/upload-session/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -62,8 +63,9 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
 
     const pollInterval = setInterval(async () => {
       try {
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
         const token = localStorage.getItem('fixhub_token');
-        const response = await fetch(`http://localhost:4000/api/upload-session/${sessionId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/upload-session/${sessionId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -106,8 +108,9 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
     if (!sessionId) return;
 
     try {
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       const token = localStorage.getItem('fixhub_token');
-      const response = await fetch(`http://localhost:4000/api/upload-session/${sessionId}/files`, {
+      const response = await fetch(`${API_BASE_URL}/api/upload-session/${sessionId}/files`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

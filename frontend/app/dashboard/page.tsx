@@ -52,8 +52,9 @@ export default function DashboardPage() {
       });
 
       // Upload to backend with files
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
       const token = localStorage.getItem('fixhub_token');
-      const response = await fetch('http://localhost:4000/api/analyze', {
+      const response = await fetch(`${API_BASE_URL}/api/analyze`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -62,7 +63,14 @@ export default function DashboardPage() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        // Handle 401 errors - clear invalid token
+        if (response.status === 401) {
+          localStorage.removeItem('fixhub_token');
+          window.location.href = '/auth/login';
+          return;
+        }
+        
+        const errorData = await response.json().catch(() => ({ error: 'Analysis failed' }));
         throw new Error(errorData.error || 'Analysis failed');
       }
 

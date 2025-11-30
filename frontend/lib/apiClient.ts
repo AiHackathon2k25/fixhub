@@ -1,4 +1,4 @@
-import { getToken } from './auth';
+import { getToken, clearToken } from './auth';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -56,6 +56,18 @@ export async function apiPost<T = any>(
 
     if (!response.ok) {
       console.error('API Error:', data);
+      
+      // Handle unauthorized errors - clear invalid token
+      if (response.status === 401) {
+        clearToken();
+        // Redirect to login on next tick to avoid React state issues
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            window.location.href = '/auth/login';
+          }, 100);
+        }
+      }
+      
       throw new Error(data.error || `Request failed: ${response.statusText}`);
     }
 
@@ -108,6 +120,16 @@ export async function apiGet<T = any>(
   }
 
   if (!response.ok) {
+    // Handle unauthorized errors - clear invalid token
+    if (response.status === 401) {
+      clearToken();
+      if (typeof window !== 'undefined') {
+        setTimeout(() => {
+          window.location.href = '/auth/login';
+        }, 100);
+      }
+    }
+    
     throw new Error(data.error || `Request failed: ${response.statusText}`);
   }
 
