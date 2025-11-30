@@ -71,7 +71,7 @@ class Collection<T extends Document> {
   }
 
   findOne(query: Partial<T>): T | null {
-    for (const doc of this.documents.values()) {
+    for (const doc of Array.from(this.documents.values())) {
       if (this.matchesQuery(doc, query)) {
         return { ...doc };
       }
@@ -85,7 +85,7 @@ class Collection<T extends Document> {
   }
 
   updateOne(query: Partial<T>, update: Partial<T>): boolean {
-    for (const [id, doc] of this.documents.entries()) {
+    for (const [id, doc] of Array.from(this.documents.entries())) {
       if (this.matchesQuery(doc, query)) {
         const updated = { ...doc, ...update, _id: id };
         this.documents.set(id, updated);
@@ -97,7 +97,7 @@ class Collection<T extends Document> {
   }
 
   deleteOne(query: Partial<T>): boolean {
-    for (const [id, doc] of this.documents.entries()) {
+    for (const [id, doc] of Array.from(this.documents.entries())) {
       if (this.matchesQuery(doc, query)) {
         this.documents.delete(id);
         this.saveToFile();
