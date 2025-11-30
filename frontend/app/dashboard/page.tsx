@@ -129,28 +129,11 @@ export default function DashboardPage() {
 
   return (
     <ProtectedClient>
-<<<<<<< HEAD
-      <div className="min-h-screen bg-white">
-=======
       <div className="min-h-screen bg-slate-50">
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
         <DashboardNav />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           {/* Welcome Banner */}
-<<<<<<< HEAD
-          <div className="mb-6 bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 text-white rounded-xl p-6 md:p-10 shadow-lg">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-white/80">Welcome to Your Dashboard</h1>
-                <p className="text-white/90 text-sm md:text-base">Upload photos to get instant AI-powered damage assessment, cost estimation, and automated triage decisions</p>
-              </div>
-              <div className="hidden md:block">
-                <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/30">
-                  <div className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold">5</div>
-                    <div className="text-xs md:text-sm text-white/90 mt-2 font-medium">Active Claims</div>
-=======
           <div className="mb-8 bg-gradient-to-r from-slate-800 to-slate-700 text-white rounded-2xl p-8 shadow-xl border border-slate-600">
             <div className="flex items-center justify-between">
               <div>
@@ -162,7 +145,6 @@ export default function DashboardPage() {
                   <div className="text-center">
                     <div className="text-3xl font-bold text-teal-400">5</div>
                     <div className="text-xs text-slate-400 mt-1">Active Claims</div>
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
                   </div>
                 </div>
               </div>
@@ -212,26 +194,25 @@ export default function DashboardPage() {
               <div className="lg:col-span-2 space-y-6">
                 <UploadForm onAnalyze={handleAnalyze} isLoading={isLoading} />
 
-<<<<<<< HEAD
                 {error && (
-                  <div className="bg-rose-50 border-l-4 border-rose-500 text-rose-800 px-6 py-4 rounded-2xl mb-6 shadow-soft animate-fade-in">
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl">❌</span>
+                  <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 shadow-md animate-fade-in">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">❌</span>
                       <div>
-                        <p className="font-bold text-lg">Error</p>
-                        <p className="font-serif">{error}</p>
+                        <p className="font-bold">Error</p>
+                        <p>{error}</p>
                       </div>
                     </div>
                   </div>
                 )}
 
                 {successMessage && (
-                  <div className="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800 px-6 py-4 rounded-2xl shadow-soft animate-fade-in">
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl">✅</span>
+                  <div className="bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-lg shadow-md animate-fade-in">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">✅</span>
                       <div>
-                        <p className="font-bold text-lg">Success!</p>
-                        <p className="font-serif">{successMessage}</p>
+                        <p className="font-bold">Success!</p>
+                        <p>{successMessage}</p>
                       </div>
                     </div>
                   </div>
@@ -247,70 +228,53 @@ export default function DashboardPage() {
                 )}
               </div>
 
-              {/* Right Column - Stats */}
+              {/* Right Column - History & Stats */}
               <div className="space-y-6">
+                {/* Analysis History */}
+                <AnalysisHistory onRefresh={historyRefresh} />
                 {/* Quick Stats */}
-                <div className="bg-white rounded-lg p-6 shadow-md border border-slate-100">
-                  <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-5">Quick Stats</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:shadow-md transition-all">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">✅</span>
+                <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                  <h3 className="text-lg font-semibold text-slate-800 mb-4">Quick Stats</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+                          <span className="text-xl">✅</span>
                         </div>
                         <div>
-                          <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Completed</div>
-                          <div className="text-2xl font-bold text-slate-900">12</div>
+                          <div className="text-sm text-slate-600">Completed</div>
+                          <div className="text-lg font-bold text-slate-800">12</div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:shadow-md transition-all">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">⏳</span>
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                          <span className="text-xl">⏳</span>
                         </div>
                         <div>
-                          <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Pending</div>
-                          <div className="text-2xl font-bold text-slate-900">5</div>
+                          <div className="text-sm text-slate-600">Pending</div>
+                          <div className="text-lg font-bold text-slate-800">5</div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:shadow-md transition-all">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">📊</span>
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <span className="text-xl">📊</span>
                         </div>
                         <div>
-                          <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Total Claims</div>
-                          <div className="text-2xl font-bold text-slate-900">17</div>
+                          <div className="text-sm text-slate-600">Total Claims</div>
+                          <div className="text-lg font-bold text-slate-800">17</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                {/* Help & Support */}
-                <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg shadow-md p-6 border border-primary-200">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Need Help?</h3>
-                  <p className="text-sm text-slate-600 mb-4">Our support team is here 24/7</p>
-                  <Link href="/help" className="block w-full bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center">
-                    Contact Support
-                  </Link>
-=======
-              {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 shadow-md animate-fade-in">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">❌</span>
-                <div>
-                  <p className="font-bold">Error</p>
-                  <p>{error}</p>
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
-                </div>
               </div>
             </div>
           )}
 
-<<<<<<< HEAD
           {activeTab === 'history' && (
             <div className="bg-white rounded-lg shadow-md border border-slate-100 p-6">
               <AnalysisHistory onRefresh={historyRefresh} />
@@ -326,70 +290,6 @@ export default function DashboardPage() {
                   <div className="flex-1">
                     <p className="text-sm font-medium text-slate-900">Claim Approved</p>
                     <p className="text-xs text-slate-500">Dishwasher repair - 2 hours ago</p>
-=======
-              {successMessage && (
-                <div className="bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-lg shadow-md animate-fade-in">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">✅</span>
-                    <div>
-                      <p className="font-bold">Success!</p>
-                      <p>{successMessage}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {analysisResult && (
-                <AnalysisResultCard
-                  result={analysisResult}
-                  onOpenClaim={() => setIsClaimModalOpen(true)}
-                  onSendTicket={handleSendTicket}
-                  isSendingTicket={isSendingTicket}
-                />
-              )}
-            </div>
-
-            {/* Right Column - History & Stats */}
-            <div className="space-y-6">
-              {/* Analysis History */}
-              <AnalysisHistory onRefresh={historyRefresh} />
-              {/* Quick Stats */}
-              <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
-                <h3 className="text-lg font-semibold text-slate-800 mb-4">Quick Stats</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-                        <span className="text-xl">✅</span>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-600">Completed</div>
-                        <div className="text-lg font-bold text-slate-800">12</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                        <span className="text-xl">⏳</span>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-600">Pending</div>
-                        <div className="text-lg font-bold text-slate-800">5</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <span className="text-xl">📊</span>
-                      </div>
-                      <div>
-                        <div className="text-sm text-slate-600">Total Claims</div>
-                        <div className="text-lg font-bold text-slate-800">17</div>
-                      </div>
-                    </div>
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
