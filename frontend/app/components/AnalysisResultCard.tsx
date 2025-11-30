@@ -23,6 +23,32 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
     }
   };
 
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'easy':
+        return 'bg-emerald-100 text-emerald-800';
+      case 'medium':
+        return 'bg-amber-100 text-amber-800';
+      case 'hard':
+        return 'bg-rose-100 text-rose-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getUrgencyColor = (urgency: string) => {
+    switch (urgency) {
+      case 'low':
+        return 'bg-blue-100 text-blue-800';
+      case 'normal':
+        return 'bg-cyan-100 text-cyan-800';
+      case 'high':
+        return 'bg-orange-100 text-orange-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
   // Get first 1-2 sentences of insurance summary
   const shortSummary = result.insuranceSummary.split('.').slice(0, 2).join('.') + '.';
 
@@ -33,6 +59,29 @@ export default function AnalysisResultCard({ result, onOpenClaim, onSendTicket, 
         <h2 className="text-2xl font-bold text-slate-800">Analysis Complete</h2>
       </div>
 
+      {/* New enhanced fields - prominent display */}
+      <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-5 mb-4 border-2 border-teal-200">
+        <div className="mb-3">
+          <h3 className="text-sm font-semibold text-teal-900 mb-1">Issue Summary</h3>
+          <p className="text-base text-slate-800 leading-relaxed">{result.issueSummary}</p>
+        </div>
+        
+        <div className="mb-3">
+          <h3 className="text-sm font-semibold text-teal-900 mb-1">Recommended Fix</h3>
+          <p className="text-base text-slate-800 leading-relaxed">{result.recommendedFix}</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${getDifficultyColor(result.difficulty)}`}>
+            🔧 Difficulty: {result.difficulty.toUpperCase()}
+          </span>
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${getUrgencyColor(result.urgency)}`}>
+            ⏰ Urgency: {result.urgency.toUpperCase()}
+          </span>
+        </div>
+      </div>
+
+      {/* Existing fields - detailed information */}
       <div className="bg-slate-50 rounded-lg p-4 space-y-3 mb-4">
         <div>
           <span className="text-sm font-medium text-gray-600">Category:</span>

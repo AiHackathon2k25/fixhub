@@ -36,7 +36,11 @@ Input description:
 "${description}"
 
 Your task:
-1. Infer:
+1. Analyze the damage and provide:
+   - issueSummary: A clear, user-friendly 1-2 sentence summary of the problem
+   - recommendedFix: Specific repair/replacement action recommended (1-2 sentences)
+   - difficulty: one of "easy", "medium", "hard" (repair complexity)
+   - urgency: one of "low", "normal", "high" (how quickly it should be addressed)
    - category: one of "appliance", "electronics", "plumbing", "furniture", "other"
    - subCategory: a short specific type (e.g. "dishwasher", "smartphone", "pipe leak")
    - severity: one of "minor", "moderate", "severe"
@@ -45,15 +49,20 @@ Your task:
    - insuranceSummary: 1–3 sentences in formal insurance language summarizing
      what the customer reports, visible damage, and recommended next step.
 
-2. Be consistent and conservative:
+2. Guidelines:
+   - Difficulty: "easy" for simple fixes, "medium" for standard repairs, "hard" for complex/specialized work
+   - Urgency: "high" for safety/water damage, "normal" for functional issues, "low" for cosmetic
    - If damage is cosmetic or small and the device is usable, choose "minor" and "repair".
    - If the device is heavily damaged or likely more expensive to fix than replace, choose "severe" and "replace".
-   - If it could be either, prefer "repair" when the damage is local and typical (e.g. screen crack, door hinge, small leak).
 
 3. Output:
 Return ONLY a valid JSON object with these exact keys:
 
 {
+  "issueSummary": "string",
+  "recommendedFix": "string",
+  "difficulty": "easy | medium | hard",
+  "urgency": "low | normal | high",
   "category": "appliance | electronics | plumbing | furniture | other",
   "subCategory": "string",
   "severity": "minor | moderate | severe",
@@ -97,6 +106,10 @@ Return ONLY a valid JSON object with these exact keys:
   }
 
   const requiredKeys: (keyof AnalysisResult)[] = [
+    "issueSummary",
+    "recommendedFix",
+    "difficulty",
+    "urgency",
     "category",
     "subCategory",
     "severity",

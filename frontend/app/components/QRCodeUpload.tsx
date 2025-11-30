@@ -1,0 +1,263 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
+
+interface QRCodeUploadProps {
+  onFilesReceived: (files: File[], description: string) => void;
+  onError: (error: string) => void;
+}
+
+export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadProps) {
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
+  const [isPolling, setIsPolling] = useState(false);
+  const [status, setStatus] = useState<'creating' | 'waiting' | 'received' | 'error' | 'timeout'>('creating');
+  const [pollingAttempts, setPollingAttempts] = useState(0);
+
+  const MAX_POLLING_ATTEMPTS = 150; // 5 minutes (150 * 2 seconds)
+  const POLLING_INTERVAL = 2000; // 2 seconds
+
+  // Create session on mount
+  useEffect(() => {
+    createSession();
+  }, []);
+
+  const createSession = async () => {
+    try {
+      const token = localStorage.getItem('fixhub_token');
+      const response = await fetch('http://localhost:4000/api/upload-session/create', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create upload session');
+      }
+
+      const data = await response.json();
+      const sid = data.sessionId;
+      setSessionId(sid);
+
+      // Create QR code URL
+      const baseUrl = window.location.origin;
+      const uploadUrl = `${baseUrl}/mobile-upload?session=${sid}`;
+      setQrCodeUrl(uploadUrl);
+
+      setStatus('waiting');
+      setIsPolling(true);
+    } catch (err) {
+      console.error('Error creating session:', err);
+      setStatus('error');
+      onError('Failed to create upload session. Please try again.');
+    }
+  };
+
+  // Poll for session status
+  useEffect(() => {
+    if (!isPolling || !sessionId) return;
+
+    const pollInterval = setInterval(async () => {
+      try {
+        const token = localStorage.getItem('fixhub_token');
+        const response = await fetch(`http://localhost:4000/api/upload-session/${sessionId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to check session status');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'uploaded' && data.fileCount > 0) {
+          // Files have been uploaded! Now retrieve them
+          setStatus('received');
+          setIsPolling(false);
+          await retrieveFiles();
+          return;
+        }
+
+        // Check timeout
+        setPollingAttempts(prev => {
+          const newAttempts = prev + 1;
+          if (newAttempts >= MAX_POLLING_ATTEMPTS) {
+            setIsPolling(false);
+            setStatus('timeout');
+            onError('Upload timeout. No files received from mobile device.');
+          }
+          return newAttempts;
+        });
+      } catch (err) {
+        console.error('Error polling session:', err);
+        // Continue polling on error
+      }
+    }, POLLING_INTERVAL);
+
+    return () => clearInterval(pollInterval);
+  }, [isPolling, sessionId, pollingAttempts]);
+
+  const retrieveFiles = async () => {
+    if (!sessionId) return;
+
+    try {
+      const token = localStorage.getItem('fixhub_token');
+      const response = await fetch(`http://localhost:4000/api/upload-session/${sessionId}/files`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to retrieve files');
+      }
+
+      const data = await response.json();
+      
+      // Convert file data back to File objects
+      const files: File[] = data.files.map((fileData: any) => {
+        const buffer = Buffer.from(fileData.buffer);
+        const blob = new Blob([buffer], { type: fileData.mimetype });
+        return new File([blob], fileData.filename, { type: fileData.mimetype });
+      });
+
+      onFilesReceived(files, data.description);
+    } catch (err) {
+      console.error('Error retrieving files:', err);
+      onError('Failed to retrieve uploaded files');
+    }
+  };
+
+  const retry = () => {
+    setStatus('creating');
+    setPollingAttempts(0);
+    setIsPolling(false);
+    setSessionId(null);
+    setQrCodeUrl(null);
+    createSession();
+  };
+
+  if (status === 'creating') {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200 text-center">
+        <div className="animate-spin text-4xl mb-4">⏳</div>
+        <p className="text-slate-600">Creating upload session...</p>
+      </div>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200 text-center">
+        <span className="text-4xl mb-4 block">❌</span>
+        <p className="text-slate-600 mb-4">Failed to create upload session</p>
+        <button
+          onClick={retry}
+          className="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (status === 'timeout') {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200 text-center">
+        <span className="text-4xl mb-4 block">⏰</span>
+        <p className="text-slate-600 mb-4">Upload session timed out</p>
+        <p className="text-sm text-slate-500 mb-4">No files were received from your mobile device.</p>
+        <button
+          onClick={retry}
+          className="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+        >
+          Generate New QR Code
+        </button>
+      </div>
+    );
+  }
+
+  if (status === 'received') {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200 text-center">
+        <span className="text-4xl mb-4 block">✅</span>
+        <p className="text-teal-600 font-semibold">Files received from mobile device!</p>
+        <p className="text-sm text-slate-500 mt-2">Processing...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+      <h2 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-2">
+        <span className="text-2xl">📱</span>
+        Scan QR Code to Upload from Phone
+      </h2>
+
+      <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-6 mb-4">
+        {qrCodeUrl && (
+          <div className="flex flex-col items-center">
+            <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+              <QRCodeSVG 
+                value={qrCodeUrl} 
+                size={200} 
+                level="M"
+                includeMargin={true}
+              />
+            </div>
+            <p className="text-sm text-slate-700 font-medium text-center mb-2">
+              Scan this code with your phone's camera
+            </p>
+            <p className="text-xs text-slate-500 text-center">
+              Session expires in 10 minutes
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-3">
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">1.</span>
+          <p className="text-slate-600">Open your phone's camera app</p>
+        </div>
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">2.</span>
+          <p className="text-slate-600">Point it at the QR code above</p>
+        </div>
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">3.</span>
+          <p className="text-slate-600">Tap the notification to open the upload page</p>
+        </div>
+        <div className="flex items-start gap-3 text-sm">
+          <span className="text-teal-600 font-bold">4.</span>
+          <p className="text-slate-600">Take photos/videos and describe the damage</p>
+        </div>
+      </div>
+
+      <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+        <div className="flex items-center justify-center gap-2">
+          <div className="animate-pulse w-3 h-3 bg-teal-500 rounded-full"></div>
+          <p className="text-sm text-slate-600 font-medium">
+            Waiting for upload from phone...
+          </p>
+        </div>
+        <p className="text-xs text-slate-500 text-center mt-2">
+          Checking every 2 seconds ({pollingAttempts}/{MAX_POLLING_ATTEMPTS})
+        </p>
+      </div>
+
+      <button
+        onClick={retry}
+        className="w-full mt-4 text-sm text-slate-600 hover:text-slate-800 font-medium py-2 transition-colors"
+      >
+        🔄 Generate New QR Code
+      </button>
+    </div>
+  );
+}
+

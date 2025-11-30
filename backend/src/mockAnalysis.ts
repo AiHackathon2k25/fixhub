@@ -5,6 +5,10 @@ export function mockAnalysis(description: string): AnalysisResult {
 
   if (lower.includes('dishwasher')) {
     return {
+      issueSummary: 'Dishwasher door has dropped and will not close properly due to bent hinge.',
+      recommendedFix: 'Replace the damaged hinge assembly and realign the door mechanism.',
+      difficulty: 'medium',
+      urgency: 'normal',
       category: 'appliance',
       subCategory: 'dishwasher',
       severity: 'moderate',
@@ -17,6 +21,10 @@ export function mockAnalysis(description: string): AnalysisResult {
 
   if (lower.includes('phone') || lower.includes('screen')) {
     return {
+      issueSummary: 'Smartphone screen is cracked with impaired touch functionality after being dropped.',
+      recommendedFix: 'Full screen replacement or device replacement recommended due to extent of damage.',
+      difficulty: 'medium',
+      urgency: 'normal',
       category: 'electronics',
       subCategory: 'smartphone',
       severity: 'severe',
@@ -29,6 +37,10 @@ export function mockAnalysis(description: string): AnalysisResult {
 
   if (lower.includes('leak') || lower.includes('water')) {
     return {
+      issueSummary: 'Water leak detected near pipe connection with visible moisture.',
+      recommendedFix: 'Plumber should inspect and reseal or replace the failing connection, check for additional leaks.',
+      difficulty: 'medium',
+      urgency: 'high',
       category: 'plumbing',
       subCategory: 'pipe leak',
       severity: 'moderate',
@@ -40,6 +52,10 @@ export function mockAnalysis(description: string): AnalysisResult {
   }
 
   return {
+    issueSummary: 'General household item damage with limited details provided.',
+    recommendedFix: 'Standard inspection and localized repair should be sufficient.',
+    difficulty: 'easy',
+    urgency: 'low',
     category: 'appliance',
     subCategory: 'general household item',
     severity: 'minor',
