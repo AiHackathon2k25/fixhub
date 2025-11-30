@@ -1,0 +1,80 @@
+[
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "my washing machine, is broken \r\n",
+    "fileNames": [
+      "washing.jpg"
+    ],
+    "imageUrls": [
+      "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1764439597/fixhub/1764439596668_washing.jpg"
+    ],
+    "result": {
+      "category": "appliance",
+      "subCategory": "washing machine",
+      "severity": "moderate",
+      "estimatedCost": "2000–5000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The policyholder reports their washing machine is non-functional. No specific visible damage has been reported at this time. An inspection by a qualified appliance technician is recommended to diagnose the fault and determine the appropriate repair action."
+    },
+    "createdAt": "2025-11-29T18:06:42.935Z",
+    "_id": "analysisHistory_1764439602936_5e07re0su",
+    "ticketId": "tickets_1764439606222_nivjhxoui",
+    "providerId": "serviceProviders_1764439736689_jq15q3cvq",
+    "providerName": "Lars Hansen",
+    "providerEmail": "lars@fixhub-appliances.dk",
+    "providerCompany": "FixHub Appliance Repair",
+    "providerCategory": "appliance"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "I have a problem in my washine machine",
+    "fileNames": [
+      "washing.jpg"
+    ],
+    "imageUrls": [
+      "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1764441213/fixhub/1764441212184_washing.jpg"
+    ],
+    "result": {
+      "category": "appliance",
+      "subCategory": "washing machine",
+      "severity": "moderate",
+      "estimatedCost": "1500–3000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The customer reports a general problem with their washing machine. No specific visible damage or details regarding the malfunction have been provided. Further assessment by a qualified technician is recommended to diagnose the issue and determine the appropriate course of action."
+    },
+    "createdAt": "2025-11-29T18:33:40.671Z",
+    "_id": "analysisHistory_1764441220671_czjufzjgg",
+    "ticketId": "tickets_1764441235236_wt4g3qcnx",
+    "providerId": "serviceProviders_1764439736689_jq15q3cvq",
+    "providerName": "Lars Hansen",
+    "providerEmail": "lars@fixhub-appliances.dk",
+    "providerCompany": "FixHub Appliance Repair",
+    "providerCategory": "appliance"
+  },
+  {
+    "userId": "users_1764439295683_p29f8zhqq",
+    "description": "My laptop's screen is broken",
+    "fileNames": [
+      "brokenlaptop.jpeg"
+    ],
+    "imageUrls": [
+      "https://res.cloudinary.com/dg6bvmi2c/image/upload/v1764441350/fixhub/1764441350335_brokenlaptop.jpg"
+    ],
+    "result": {
+      "category": "electronics",
+      "subCategory": "laptop",
+      "severity": "moderate",
+      "estimatedCost": "2000–4000 DKK",
+      "repairOrReplace": "repair",
+      "insuranceSummary": "The customer has reported that their laptop's screen is broken, indicating significant damage to the display component. This issue typically impairs device usability and is commonly addressed through a screen replacement. Further assessment by a qualified technician is recommended to confirm repair feasibility and precise costs."
+    },
+    "createdAt": "2025-11-29T18:35:55.004Z",
+    "_id": "analysisHistory_1764441355004_km61h8c5c",
+    "ticketId": "tickets_1764441361823_3g6t7i6os",
+    "providerId": "serviceProviders_1764439736687_9l30r9lxf",
+    "providerName": "Maria Nielsen",
+    "providerEmail": "maria@fixhub-electronics.dk",
+    "providerCompany": "FixHub Electronics Repair",
+    "providerCategory": "electronics"
+  }
+]

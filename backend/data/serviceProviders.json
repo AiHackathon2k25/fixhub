@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Hans Andersen",
+    "category": "plumbing",
+    "email": "hans@fixhub-plumbing.dk",
+    "phone": "+45 12 34 56 78",
+    "company": "FixHub Plumbing Services",
+    "specialties": [
+      "pipe leaks",
+      "water damage",
+      "drainage",
+      "heating systems"
+    ],
+    "isActive": true,
+    "createdAt": "2025-11-29T18:08:56.668Z",
+    "_id": "serviceProviders_1764439736685_j7u0ufuup"
+  },
+  {
+    "name": "Maria Nielsen",
+    "category": "electronics",
+    "email": "maria@fixhub-electronics.dk",
+    "phone": "+45 23 45 67 89",
+    "company": "FixHub Electronics Repair",
+    "specialties": [
+      "smartphones",
+      "laptops",
+      "tablets",
+      "TVs",
+      "audio equipment"
+    ],
+    "isActive": true,
+    "createdAt": "2025-11-29T18:08:56.687Z",
+    "_id": "serviceProviders_1764439736687_9l30r9lxf"
+  },
+  {
+    "name": "Lars Hansen",
+    "category": "appliance",
+    "email": "lars@fixhub-appliances.dk",
+    "phone": "+45 34 56 78 90",
+    "company": "FixHub Appliance Repair",
+    "specialties": [
+      "washing machines",
+      "dishwashers",
+      "refrigerators",
+      "ovens"
+    ],
+    "isActive": true,
+    "createdAt": "2025-11-29T18:08:56.689Z",
+    "_id": "serviceProviders_1764439736689_jq15q3cvq"
+  },
+  {
+    "name": "Sofia Johansen",
+    "category": "furniture",
+    "email": "sofia@fixhub-general.dk",
+    "phone": "+45 45 67 89 01",
+    "company": "FixHub General Repairs",
+    "specialties": [
+      "furniture",
+      "woodwork",
+      "general repairs",
+      "other"
+    ],
+    "isActive": true,
+    "createdAt": "2025-11-29T18:08:56.690Z",
+    "_id": "serviceProviders_1764439736690_kzalb33b8"
+  }
+]
