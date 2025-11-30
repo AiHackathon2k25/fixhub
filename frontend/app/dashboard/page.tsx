@@ -195,24 +195,24 @@ export default function DashboardPage() {
                 <UploadForm onAnalyze={handleAnalyze} isLoading={isLoading} />
 
                 {error && (
-                  <div className="bg-rose-50 border-l-4 border-rose-500 text-rose-800 px-6 py-4 rounded-2xl mb-6 shadow-soft animate-fade-in">
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl">❌</span>
+                  <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-6 shadow-md animate-fade-in">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">❌</span>
                       <div>
-                        <p className="font-bold text-lg">Error</p>
-                        <p className="font-serif">{error}</p>
+                        <p className="font-bold">Error</p>
+                        <p>{error}</p>
                       </div>
                     </div>
                   </div>
                 )}
 
                 {successMessage && (
-                  <div className="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800 px-6 py-4 rounded-2xl shadow-soft animate-fade-in">
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl">✅</span>
+                  <div className="bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-lg shadow-md animate-fade-in">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">✅</span>
                       <div>
-                        <p className="font-bold text-lg">Success!</p>
-                        <p className="font-serif">{successMessage}</p>
+                        <p className="font-bold">Success!</p>
+                        <p>{successMessage}</p>
                       </div>
                     </div>
                   </div>
@@ -228,42 +228,44 @@ export default function DashboardPage() {
                 )}
               </div>
 
-              {/* Right Column - Stats */}
+              {/* Right Column - History & Stats */}
               <div className="space-y-6">
+                {/* Analysis History */}
+                <AnalysisHistory onRefresh={historyRefresh} />
                 {/* Quick Stats */}
-                <div className="bg-white rounded-lg p-6 shadow-md border border-slate-100">
-                  <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-5">Quick Stats</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:shadow-md transition-all">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">✅</span>
+                <div className="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                  <h3 className="text-lg font-semibold text-slate-800 mb-4">Quick Stats</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
+                          <span className="text-xl">✅</span>
                         </div>
                         <div>
-                          <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Completed</div>
-                          <div className="text-2xl font-bold text-slate-900">12</div>
+                          <div className="text-sm text-slate-600">Completed</div>
+                          <div className="text-lg font-bold text-slate-800">12</div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:shadow-md transition-all">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">⏳</span>
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                          <span className="text-xl">⏳</span>
                         </div>
                         <div>
-                          <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Pending</div>
-                          <div className="text-2xl font-bold text-slate-900">5</div>
+                          <div className="text-sm text-slate-600">Pending</div>
+                          <div className="text-lg font-bold text-slate-800">5</div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:shadow-md transition-all">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                          <span className="text-2xl">📊</span>
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <span className="text-xl">📊</span>
                         </div>
                         <div>
-                          <div className="text-xs text-slate-500 uppercase tracking-wide font-medium">Total Claims</div>
-                          <div className="text-2xl font-bold text-slate-900">17</div>
+                          <div className="text-sm text-slate-600">Total Claims</div>
+                          <div className="text-lg font-bold text-slate-800">17</div>
                         </div>
                       </div>
                     </div>
