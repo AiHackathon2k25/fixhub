@@ -207,24 +207,15 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
         Scan QR Code to Upload from Phone
       </h2>
 
-      <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-6 mb-4">
+      <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg p-6 mb-4">
         {qrCodeUrl && (
           <div className="flex flex-col items-center">
-<<<<<<< HEAD
-            <div className="bg-white p-6 rounded-2xl shadow-soft-lg mb-4">
+            <div className="bg-white p-6 rounded-2xl shadow-lg mb-4">
               <QRCode 
                 value={qrCodeUrl} 
                 size={220}
                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                 viewBox={`0 0 220 220`}
-=======
-            <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-              <QRCodeSVG 
-                value={qrCodeUrl} 
-                size={200} 
-                level="M"
-                includeMargin={true}
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
               />
             </div>
             <p className="text-sm text-slate-700 font-medium text-center mb-2">
@@ -239,26 +230,26 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
 
       <div className="space-y-3">
         <div className="flex items-start gap-3 text-sm">
-          <span className="text-teal-600 font-bold">1.</span>
+          <span className="text-primary-600 font-bold">1.</span>
           <p className="text-slate-600">Open your phone's camera app</p>
         </div>
         <div className="flex items-start gap-3 text-sm">
-          <span className="text-teal-600 font-bold">2.</span>
+          <span className="text-primary-600 font-bold">2.</span>
           <p className="text-slate-600">Point it at the QR code above</p>
         </div>
         <div className="flex items-start gap-3 text-sm">
-          <span className="text-teal-600 font-bold">3.</span>
+          <span className="text-primary-600 font-bold">3.</span>
           <p className="text-slate-600">Tap the notification to open the upload page</p>
         </div>
         <div className="flex items-start gap-3 text-sm">
-          <span className="text-teal-600 font-bold">4.</span>
+          <span className="text-primary-600 font-bold">4.</span>
           <p className="text-slate-600">Take photos/videos and describe the damage</p>
         </div>
       </div>
 
       <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
         <div className="flex items-center justify-center gap-2">
-          <div className="animate-pulse w-3 h-3 bg-teal-500 rounded-full"></div>
+          <div className="animate-pulse w-3 h-3 bg-primary-500 rounded-full"></div>
           <p className="text-sm text-slate-600 font-medium">
             Waiting for upload from phone...
           </p>
@@ -270,7 +261,7 @@ export default function QRCodeUpload({ onFilesReceived, onError }: QRCodeUploadP
 
       <button
         onClick={retry}
-        className="w-full mt-4 text-sm text-slate-600 hover:text-slate-800 font-medium py-2 transition-colors"
+        className="w-full mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium py-2 transition-colors"
       >
         🔄 Generate New QR Code
       </button>

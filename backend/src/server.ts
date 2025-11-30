@@ -106,15 +106,10 @@ initializeServiceProviders();
 migrateProviderInfo();
 
 // Start server
-<<<<<<< HEAD
-const server = app.listen(PORT, () => {
-  console.log(`✅ Backend server running on http://localhost:${PORT}`);
-=======
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Backend server running on port ${PORT}`);
   console.log(`🌐 Server accessible at: http://0.0.0.0:${PORT}`);
   console.log(`📋 Allowed CORS origins: ${allowedOrigins.join(', ')}`);
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
   console.log('📍 Endpoints:');
   console.log('   GET  /health');
   console.log('   POST /api/auth/signup');

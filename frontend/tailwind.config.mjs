@@ -6,7 +6,6 @@ export default {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-<<<<<<< HEAD
     extend: {
       colors: {
         // Professional colors - Blue/Purple gradient template (Aternus 42 style)
@@ -92,9 +91,6 @@ export default {
         '3xl': '2rem',
       },
     },
-=======
-    extend: {},
->>>>>>> d3e4fdb54f63a5644688415307bdc5786787a8fc
   },
   plugins: [],
 };
