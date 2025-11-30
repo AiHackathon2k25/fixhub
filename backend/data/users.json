@@ -1,0 +1,10 @@
+[
+  {
+    "email": "test@fixhub.com",
+    "passwordHash": "$2a$10$Ib6Aqv4R5S9lcwyOEqSFKeJwD/SnKrrh9lx3roda8GscLnZ6BE5pG",
+    "username": "Test User",
+    "phone": "+45 12345678",
+    "createdAt": "2025-11-29T18:01:35.682Z",
+    "_id": "users_1764439295683_p29f8zhqq"
+  }
+]
