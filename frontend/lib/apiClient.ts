@@ -34,7 +34,25 @@ export async function apiPost<T = any>(
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    // Check if response has content before parsing JSON
+    const contentType = response.headers.get('content-type');
+    const text = await response.text();
+    
+    let data: any;
+    if (text && contentType?.includes('application/json')) {
+      try {
+        data = JSON.parse(text);
+      } catch (parseError) {
+        console.error('Failed to parse JSON:', text);
+        throw new Error(`Invalid JSON response from server: ${text.substring(0, 100)}`);
+      }
+    } else if (text) {
+      // Non-JSON response
+      throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}`);
+    } else {
+      // Empty response
+      throw new Error(`Empty response from server. Status: ${response.status} ${response.statusText}`);
+    }
 
     if (!response.ok) {
       console.error('API Error:', data);
@@ -46,7 +64,8 @@ export async function apiPost<T = any>(
   } catch (error) {
     console.error('API Call Failed:', error);
     if (error instanceof TypeError && error.message.includes('fetch')) {
-      throw new Error('Cannot connect to server. Please make sure the backend is running on http://localhost:4000');
+      const apiUrl = API_BASE_URL || 'http://localhost:4000';
+      throw new Error(`Cannot connect to server at ${apiUrl}. Check that NEXT_PUBLIC_API_URL is set correctly in Vercel environment variables.`);
     }
     throw error;
   }
@@ -70,7 +89,23 @@ export async function apiGet<T = any>(
     headers,
   });
 
-  const data = await response.json();
+  // Check if response has content before parsing JSON
+  const contentType = response.headers.get('content-type');
+  const text = await response.text();
+  
+  let data: any;
+  if (text && contentType?.includes('application/json')) {
+    try {
+      data = JSON.parse(text);
+    } catch (parseError) {
+      console.error('Failed to parse JSON:', text);
+      throw new Error(`Invalid JSON response from server: ${text.substring(0, 100)}`);
+    }
+  } else if (text) {
+    throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}`);
+  } else {
+    throw new Error(`Empty response from server. Status: ${response.status} ${response.statusText}`);
+  }
 
   if (!response.ok) {
     throw new Error(data.error || `Request failed: ${response.statusText}`);
